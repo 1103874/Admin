@@ -1,0 +1,505 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <head>
+        <link href="https://unpkg.com/vis-network@7.7.0/styles/vis-network.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+    <div class="page-content">
+    <div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                <h4 class="mb-sm-0 font-size-18">프로세스 및 가이드</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">전사</a></li>
+                        <li class="breadcrumb-item active">프로세스 및 가이드</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title">전사 Process & Guide</h4>
+                    <p class="card-title-desc">
+                        전사 회의체 등에서 공지된 전사적인 프로세스 및 가이드
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div style="text-align: center">
+                        {#                        <div>""</div>#}
+                        <div id="mymindmap" style="width: 100%; height: 550px;"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-6">
+                    <a href="{% url 'dtapp:processGuide-create' %}" class="mdi mdi-pencil btn btn-primary">
+                        작성하기</a>
+                </div>
+                {#                <div class="col-6 d-inline-flex flex-row-reverse">#}
+                {#                    <a href="{% url 'dtapp:ceiTree-export' %}" class="btn btn-success">#}
+                {#                        <i class="fa fa-file-excel-o"></i> Excel 다운로드#}
+                {#                    </a>#}
+                {#                </div>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript"
+            src="https://unpkg.com/vis-network@7.7.0/standalone/umd/vis-network.min.js"></script>
+    <!--Vis.js 코드 -->
+    <script>
+        color_1 = "black";
+        color_2 = "#64CE59";
+        color_3 = "#FFAA00";
+        color_4 = "#FFEDCA";
+
+        var nodes = new vis.DataSet([
+
+            {
+                id: 0,
+                label: 'SKO\nProcess/Guide',
+                x: 0,
+                y: 0,
+                fixed: {x: true, y: true},
+                shape: 'box',
+                color: {background: color_1, border: color_1,},
+                font: {face: 'Arial', size: 20, color: 'white', vadjust: ''},
+                widthConstraint: {minimum: 150},
+                heightConstraint: {minimum: 60},
+                url: "{% url 'dtapp:processGuide-list' %}"
+            },
+
+            {
+                id: 1, label: '안전/보안', x: -100, y: -100, fixed: {x: true, y: true}, shape: 'box',
+                color: {background: color_2, border: color_2,},
+                font: {size: 17},
+                widthConstraint: {minimum: 90},
+                heightConstraint: {minimum: 30},
+            url: "{% url 'dtapp:processGuide-list3' '안전-보안' %}"
+            },
+            {
+                id: 2, label: 'Guide', x: -100, y: 150, fixed: {x: true, y: true}, shape: 'box',
+                color: {background: color_2, border: color_2,},
+                font: {size: 17},
+                widthConstraint: {minimum: 90},
+                heightConstraint: {minimum: 30}
+            },
+            {
+                id: 3, label: '표준운용보전지침', x: 100, y: -100, fixed: {x: true, y: true}, shape: 'box',
+                color: {background: color_2, border: color_2,},
+                font: {size: 17},
+                widthConstraint: {minimum: 90},
+                heightConstraint: {minimum: 30},
+            url: "{% url 'dtapp:processGuide-list3' '표준운용보전지침' %}"
+            },
+            {
+                id: 4, label: 'Process', x: 100, y: 150, fixed: {x: true, y: true}, shape: 'box',
+                color: {background: color_2, border: color_2,},
+                font: {size: 17},
+                widthConstraint: {minimum: 90},
+                heightConstraint: {minimum: 30}
+            },
+            {
+                id: 5, label: '기술지원(9항목)', x: -350, y: -50, fixed: {x: true, y: true}, shape: '',
+                color: {background: color_3, border: color_3,},
+                font: {size: 15},
+                widthConstraint: {minimum: 50},
+                heightConstraint: {minimum: 25}
+            },
+            {
+                id: 6, label: '운용지원(5항목)', x: -350, y: 150, fixed: {x: true, y: true}, shape: '',
+                color: {background: color_3, border: color_3,},
+                font: {size: 15},
+                widthConstraint: {minimum: 50},
+                heightConstraint: {minimum: 25}
+            },
+            {
+                id: 7, label: '기술지원(6항목)', x: 350, y: -50, fixed: {x: true, y: true}, shape: '',
+                color: {background: color_3, border: color_3,},
+                font: {size: 15},
+                widthConstraint: {minimum: 50},
+                heightConstraint: {minimum: 25}
+            },
+            {
+                id: 8, label: '운용지원(4항목)', x: 350, y: 150, fixed: {x: true, y: true}, shape: '',
+                color: {background: color_3, border: color_3,},
+                font: {size: 15},
+                widthConstraint: {minimum: 50},
+                heightConstraint: {minimum: 25}
+            },
+        ]);
+
+        var edges = new vis.DataSet([
+            {from: 0, to: 1, color: {color: ''}},
+            {from: 0, to: 2},
+            {from: 0, to: 3},
+            {from: 0, to: 4},
+            {from: 2, to: 5},
+            {from: 2, to: 6},
+            {from: 4, to: 7},
+            {from: 4, to: 8},
+        ]);
+
+        var container = document.getElementById('mymindmap');
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+
+
+        var options = {
+            edges: {
+                smooth: {
+                    type: '', // 곡선 유형 선택
+                    roundness: 0.2, // 곡선의 곡률 설정 (0 ~ 1)
+                }
+            },
+            physics: {
+                enabled: false
+            },
+            interaction: {
+                dragNodes: false,
+                zoomView: true
+            }
+        };
+
+
+        var network = new vis.Network(container, data, options);
+
+        // 추가적인 기술지원 및 운용지원 항목 노드와 엣지 생성
+        // 기술지원 (좌측상단)
+        nodes.add({
+            id: 101, label: 'RM', x: -600 - 150, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_RM' %}"
+        });
+        nodes.add({
+            id: 102, label: '고객부정경험', x: -600 - 70, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_고객부정경험' %}"
+        });
+        nodes.add({
+            id: 103, label: '구축', x: -600 + 10, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_구축' %}"
+        });
+        nodes.add({
+            id: 104, label: '무선국', x: -600 + 90, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_무선국' %}"
+        });
+        nodes.add({
+            id: 105, label: '물자관리', x: -600 + 170, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_물자관리' %}"
+        });
+        nodes.add({
+            id: 106, label: '시설물', x: -600 + 250, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_시설물' %}"
+        });
+        nodes.add({
+            id: 107, label: '운용', x: -600 + 330, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_운용' %}"
+        });
+        nodes.add({
+            id: 108, label: '최적화', x: -600 + 410, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_최적화' %}"
+        });
+        nodes.add({
+            id: 109, label: '측정기', x: -600 + 490, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_기술지원_측정기' %}"
+        });
+
+        // 운용지원 (좌측하단)
+        nodes.add({
+            id: 201, label: 'RM', x: -600, y: 200 - 200, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_운용지원_RM' %}"
+        });
+        nodes.add({
+            id: 202, label: '구축', x: -600, y: 250 - 200, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_운용지원_구축' %}"
+        });
+        nodes.add({
+            id: 203, label: '시설물', x: -600, y: 300 - 200, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_운용지원_시설물' %}"
+        });
+        nodes.add({
+            id: 204, label: '운용', x: -600, y: 350 - 200, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_운용지원_운용' %}"
+        });
+        nodes.add({
+            id: 205, label: '측정기', x: -600, y: 400 - 200, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '가이드_운용지원_측정기' %}"
+        });
+
+        // 기술지원 (우측)
+        nodes.add({
+            id: 301, label: 'R&R', x: 200, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_기술지원_R&R' %}"
+        });
+        nodes.add({
+            id: 302, label: 'RM', x: 280, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_기술지원_RM' %}"
+        });
+        nodes.add({
+            id: 303, label: 'Biz', x: 360, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_기술지원_Biz' %}"
+        });
+        nodes.add({
+            id: 304, label: '운용', x: 440, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_기술지원_운용' %}"
+        });
+        nodes.add({
+            id: 305, label: '고객부정경험', x: 520, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_기술지원_고객부정경험' %}"
+        });
+        nodes.add({
+            id: 306, label: '구축', x: 600, y: -220, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_기술지원_구축' %}"
+        });
+
+        // 운용지원 (우측)
+        nodes.add({
+            id: 401, label: 'R&R', x: 600, y: 200 - 150, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_운용지원_R&R' %}"
+        });
+        nodes.add({
+            id: 402, label: 'RM', x: 600, y: 250 - 150, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_운용지원_RM' %}"
+        });
+        nodes.add({
+            id: 403, label: '구축', x: 600, y: 300 - 150, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_운용지원_구축' %}"
+        });
+        nodes.add({
+            id: 404, label: '운용', x: 600, y: 350 - 150, fixed: {x: true, y: true}, shape: '',
+            color: {background: color_4, border: color_3,},
+            font: {size: 13},
+            widthConstraint: {minimum: 30},
+            heightConstraint: {minimum: 15},
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_운용지원_운용' %}"
+        });
+
+        edges.add({from: 5, to: 101});
+        edges.add({from: 5, to: 102});
+        edges.add({from: 5, to: 103});
+        edges.add({from: 5, to: 104});
+        edges.add({from: 5, to: 105});
+        edges.add({from: 5, to: 106});
+        edges.add({from: 5, to: 107});
+        edges.add({from: 5, to: 108});
+        edges.add({from: 5, to: 109});
+
+        edges.add({from: 6, to: 201});
+        edges.add({from: 6, to: 202});
+        edges.add({from: 6, to: 203});
+        edges.add({from: 6, to: 204});
+        edges.add({from: 6, to: 205});
+
+        edges.add({from: 7, to: 301});
+        edges.add({from: 7, to: 302});
+        edges.add({from: 7, to: 303});
+        edges.add({from: 7, to: 304});
+        edges.add({from: 7, to: 305});
+        edges.add({from: 7, to: 306});
+
+        edges.add({from: 8, to: 401});
+        edges.add({from: 8, to: 402});
+        edges.add({from: 8, to: 403});
+        edges.add({from: 8, to: 404});
+
+
+        // url 속성이 있는 노드를 클릭하면 해당 url로 이동
+        network.on("click", function (params) {
+            // 클릭된 객체가 노드인 경우
+            if (params.nodes.length > 0) {
+                var node = nodes.get(params.nodes[0]);
+                if (node.url) {
+                    window.location.href = node.url;  // 해당 노드의 url 속성 값으로 이동
+                }
+            }
+        });
+
+
+        // 기술지원 및 운용지원 노드와 엣지를 숨기기 위한 함수
+        function hideNodesEdges(nodeIds, edgeIds) {
+            nodes.update(nodeIds.map(function (id) {
+                return {id: id, hidden: true};
+            }));
+            edges.update(edgeIds.map(function (id) {
+                return {id: id, hidden: true};
+            }));
+        }
+
+        // 기술지원 및 운용지원 노드와 엣지를 표시하기 위한 함수
+        function showNodesEdges(nodeIds, edgeIds) {
+            nodes.update(nodeIds.map(function (id) {
+                return {id: id, hidden: false};
+            }));
+            edges.update(edgeIds.map(function (id) {
+                return {id: id, hidden: false};
+            }));
+        }
+
+        // 기술지원 및 운용지원 하위 항목 노드와 엣지
+        var techSupportLeftNodeIds = [101, 102, 103, 104, 105, 106, 107, 108, 109];
+        var opSupportLeftNodeIds = [201, 202, 203, 204, 205];
+        var techSupportLeftEdgeIds = [201, 202, 203, 204, 205, 206, 207, 208, 209];
+        var opSupportLeftEdgeIds = [210, 211, 212, 213, 214];
+
+        var techSupprotRightNodeIds = [301, 302, 303, 304, 305, 306];
+        var opSupprotRightNodeIds = [401, 402, 403, 404];
+        var techSupprotRightEdgeIds = [215, 216, 217, 218, 219, 220];
+        var opSupprotRightEdgeIds = [221, 222, 223, 224];
+
+        // 기술지원 및 운용지원 하위 항목 노드와 엣지를 숨김
+        hideNodesEdges(techSupportLeftNodeIds.concat(opSupportLeftNodeIds), techSupportLeftEdgeIds.concat(opSupportLeftEdgeIds));
+        hideNodesEdges(techSupprotRightNodeIds.concat(opSupprotRightNodeIds), techSupprotRightEdgeIds.concat(opSupprotRightEdgeIds));
+
+        network.on('click', function (params) {
+            var nodeId = params.nodes[0];
+
+            // 좌측 기술지원 항목 클릭 시
+            if (nodeId === 5) {
+                if (nodes.get(101).hidden) {
+                    showNodesEdges(techSupportLeftNodeIds, techSupportLeftEdgeIds);
+                } else {
+                    hideNodesEdges(techSupportLeftNodeIds, techSupportLeftEdgeIds);
+                }
+            }
+            // 좌측 운용지원 항목 클릭 시
+            else if (nodeId === 6) {
+                if (nodes.get(201).hidden) {
+                    showNodesEdges(opSupportLeftNodeIds, opSupportLeftEdgeIds);
+                } else {
+                    hideNodesEdges(opSupportLeftNodeIds, opSupportLeftEdgeIds);
+                }
+            }
+            // 우측 기술지원 항목 클릭 시
+            else if (nodeId === 7) {
+                if (nodes.get(301).hidden) {
+                    showNodesEdges(techSupprotRightNodeIds, techSupprotRightEdgeIds);
+                } else {
+                    hideNodesEdges(techSupprotRightNodeIds, techSupprotRightEdgeIds);
+                }
+            }
+            // 우측 운용지원 항목 클릭 시
+            else if (nodeId === 8) {
+                if (nodes.get(401).hidden) {
+                    showNodesEdges(opSupprotRightNodeIds, opSupprotRightEdgeIds);
+                } else {
+                    hideNodesEdges(opSupprotRightNodeIds, opSupprotRightEdgeIds);
+                }
+            }
+        });
+    </script>
+
+{% endblock %}

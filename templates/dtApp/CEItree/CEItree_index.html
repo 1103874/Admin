@@ -1,0 +1,184 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                            <h4 class="mb-sm-0 font-size-18">CEI Solution Tree</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">기술지원</a></li>
+                                    <li class="breadcrumb-item active">CEI Solution Tree</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h4 class="card-title">CEI 개선 사례</h4>
+                                <p class="card-title-desc">
+                                    CEI 세부지표 단위의 개선 사례에 대한 내역을 제공합니다.
+                                </p>
+                            </div>
+
+                            <div class="card-body">
+                                <div style="text-align: center">
+                                    <div class="mermaid ms-4 my-5">
+                                        flowchart TB;
+                                        A[CEI]
+                                        A---B(HDV);
+                                        A---X(배드유저);
+                                        A---C(DATA);
+
+                                        B --> Z(종합)
+                                        B --> |QoE1| D(송수신)
+                                        B --> |QoE2| #D(음질)
+                                        B --> |QoE3| ##D(단절)
+                                        B --> |QoE4| ###D(커버리지)
+                                        B --> |가점| ####D(배드유저)
+
+                                        C --> Y(종합)
+                                        C --> |QoE1| E(접속)
+                                        C --> |QoE2| #E(화면전환)
+                                        C --> |QoE3| ##E(단절)
+                                        C --> |QoE4| ###E(속도)
+                                        C --> |QoE5| ####E(커버리지)
+                                        C --> |가점| #####E(배드유저)
+
+                                        click A "{% url 'dtapp:ceiTree-list' %}" "
+                                        "
+                                        click B "{% url 'dtapp:ceiTree_list3' 'HDV' %}" "
+                                        "
+                                        click C "{% url 'dtapp:ceiTree_list3' 'Data' %}" "
+                                        "
+                                        click Z "{% url 'dtapp:ceiTree_list2' 'HDV_종합' %}" "
+                                        "
+                                        click D "{% url 'dtapp:ceiTree_list2' 'HDV_송수신' %}" "
+                                        "
+                                        click #D "{% url 'dtapp:ceiTree_list2' 'HDV_음질' %}" "
+                                        "
+                                        click ##D "{% url 'dtapp:ceiTree_list5' %}" "
+                                        "
+                                        click ###D "{% url 'dtapp:ceiTree_list6' %}" "
+                                        "
+                                        click ####D "{% url 'dtapp:ceiTree_list2' 'HDV_배드유저' %}" "
+                                        "
+                                        click Y "{% url 'dtapp:ceiTree_list2' 'Data_종합' %}" "
+                                        "
+                                        click E "{% url 'dtapp:ceiTree_list2' 'Data_접속' %}" "
+                                        "
+                                        click #E "{% url 'dtapp:ceiTree_list2' 'Data_화면전환' %}" "
+                                        "
+                                        click ##E "{% url 'dtapp:ceiTree_list7' %}" "
+                                        "
+                                        click ###E "{% url 'dtapp:ceiTree_list2' 'Data_속도' %}" "
+                                        "
+                                        click ####E "{% url 'dtapp:ceiTree_list8' %}" "
+                                        "
+                                        click #####E "{% url 'dtapp:ceiTree_list2' 'Data_배드유저' %}" "
+                                        "
+                                        click X "{% url 'dtapp:ceiTree_list4' '배드유저' %}" "
+                                        "
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-6">
+                            <a href="{% url 'dtapp:ceiTree-create' %}" class="mdi mdi-pencil btn btn-primary">
+                                작성하기</a>
+                        </div>
+                        <div class="col-6 d-inline-flex flex-row-reverse">
+
+                            <a href="{% url 'dtapp:ceiTree-export' %}" class="btn btn-success">
+                                <i class="fa fa-file-excel-o"></i> Excel 다운로드
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <table id="example" class="table table-bordered dt-responsive nowrap w-100 text-center">
+                    <thead class="align-middle" style="background-color: snow">
+                    <tr>
+                        <th rowspan="2">구분</th>
+                        <th rowspan="2">합계</th>
+                        <th colspan="2">종합</th>
+                        <th colspan="5">HDV</th>
+                        <th colspan="6">DATA</th>
+                        <th rowspan="2">배드유저</th>
+                    </tr>
+                    <tr>
+                        {% for i in tot_sub_categories %}
+                            <th>{{ i }}</th>
+                        {% endfor %}
+                        {% for i in hdv_categories %}
+                            <th>{{ i }}</th>
+                        {% endfor %}
+                        {% for i in data_categories %}
+                            <th>{{ i }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td style="font-weight: bold; background-color: snow">과제(건)</td>
+                        <td style="font-weight: bold"><i>{{ tot_count }}</i></td>
+                        {% for i in tot_sub_counts %}
+                            <td>{{ i }}</td>
+                        {% endfor %}
+                        {% for i in hdv_counts %}
+                            <td>{{ i }}</td>
+                        {% endfor %}
+                        {% for i in data_counts %}
+                            <td>{{ i }}</td>
+                        {% endfor %}
+                        <td>{{ baduser_count }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <!-- 머메이드 js -->
+    <script src="https://unpkg.com/mermaid@8.5.2/dist/mermaid.min.js"></script>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            securityLevel: 'loose',
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true
+            }
+        });
+        var exampleCallback = function () {
+            alert('A callback was triggered');
+        }
+    </script>
+{% endblock %}

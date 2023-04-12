@@ -1,0 +1,171 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid mb-3">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                        <h4 class="mb-sm-0 font-size-18">전사 BP 사례</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
+                                <li class="breadcrumb-item active">전사 BP 사례</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!-- end page title -->
+
+            <!-- start page content -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title">조직별 사례 현황</h4>
+                    <p class="card-title-desc">
+                        공적 1순위 담당을 기준으로 결과를 제공합니다.
+                    </p>
+                </div>
+                <div class="card-body">
+
+                    <div class="container" id="bar-chart"></div>
+                </div>
+            </div>
+            <!-- end page content -->
+
+            <div class="col-8"><a href="{% url 'dtapp:srReview-list' %}" class="btn btn-primary p-2">뒤로가기</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block extra_js %}
+    <!-- Apex Chart -->
+    <script src="{% static 'libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+
+    <script type="text/javascript">
+
+        var options = {
+            series: [{
+                name: '대표이사 BP',
+                data: {{ data1|safe }}
+            }, {
+                name: '기술지원담당 BP',
+                data: {{ data3|safe }}
+            }, {
+                name: '운용지원담당 BP',
+                data: {{ data4|safe }}
+            }, {
+                name: '경영지원담당 BP',
+                data: {{ data2|safe }}
+            }],
+            chart: {
+                type: 'bar',
+                height: 500,
+                {#width: 800,#}
+                stacked: true,
+                toolbar: {
+                    show: true
+                },
+                zoom: {
+                    enabled: true
+                }
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    legend: {
+                        position: 'bottom',
+                        offsetX: -10,
+                        offsetY: 0
+                    }
+                }
+            }],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    borderRadius: 10,
+                    dataLabels: {
+                        total: {
+                            enabled: true,
+                            style: {
+                                fontSize: '13px',
+                                fontWeight: 900
+                            }
+                        }
+                    }
+                },
+            },
+            xaxis: {
+                type: 'category',
+                categories: {{ xaxis|safe }},
+                labels: {
+                    style: {
+                        {#colors: 'blue',#}
+                        fontSize: '16px',
+                        fontWeight: 700,
+                    },
+                    offsetX: 0,
+                    offsetY: 0,
+                }
+            },
+            yaxis: {
+                labels: {
+                    align: 'right',
+                    style: {
+                        colors: [],
+                        fontSize: '14px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        fontWeight: 700,
+                        cssClass: 'apexcharts-yaxis-label',
+                    },
+                    offsetY: 2,
+                },
+            },
+            title: {
+                text: 'BP 수상 현황',
+                offsetX: 20,
+                offsetY: 10,
+                style: {
+                    color: undefined,
+                    fontSize: '24px',
+                    fontFamily: 'Helvetica, Arial, sans-serif',
+                    fontWeight: 900,
+                    cssClass: 'apexcharts-xaxis-title',
+                },
+            },
+            legend: {
+                position: 'top',
+                offsetY: -5,
+                fontSize: '16px',
+                fontFamily: 'Helvetica, Arial',
+                fontWeight: 700,
+                width: undefined,
+                height: undefined,
+                itemMargin: {
+                    horizontal: 15,
+                    vertical: 5
+                },
+            },
+            fill: {
+                opacity: 1
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#bar-chart"), options);
+        chart.render();
+    </script>
+{% endblock %}

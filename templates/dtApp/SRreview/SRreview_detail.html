@@ -1,0 +1,251 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{#{% block title %}#}
+{#{% endblock %}#}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid mb-3">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                            <h4 class="mb-sm-0 font-size-18">전사 BP 사례</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
+                                    <li class="breadcrumb-item active">전사 BP 사례</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- end page title -->
+
+                <!-- start page content -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4 class="card-title">BP 포상 내역</h4>
+                        <p class="card-title-desc">
+                        </p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>날짜</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">
+                                    {{ srreview.dt }}
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>구분</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">
+                                    {{ srreview.type }}
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>담당</b></label>
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.region1 }}
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.region2 }}
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.region3 }}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>팀</b></label>
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.team1 }}
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.team2 }}
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.team3 }}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>성함</b></label>
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.name1 }}
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.name2 }}
+                            </div>
+                            <div class="col-2">
+                                {{ srreview.name3 }}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>사례명</b></label>
+                            </div>
+                            <div class="col-lg-4">
+                                {{ srreview.title }}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>내용 및 추진성과</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                {{ srreview.description|linebreaksbr }}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>미리보기</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                {% if srreview.image_upload %}
+                                    <!-- Button trigger modal -->
+                                    <div class="">
+                                        <a class="fas fa-eye" data-bs-toggle="modal"
+                                           data-bs-target="#exampleModal_{{ srreview.pk }}"
+                                           href="{{ srreview.image_upload.url }}" download> {{ srreview.image_upload|cut:'files/dtapp/SRreview/image/' }}
+                                        </a>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal_{{ srreview.pk }}"
+                                         tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5"
+                                                        id="exampleModalLabel">
+                                                        미리보기</h1>
+                                                    <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ srreview.image_upload.url }}"
+                                                         width="100%">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+                                                        닫기
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="">-</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>첨부파일</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                {% if srreview.file_upload %}
+                                    <div class="">
+                                        <a class="fas fa-file-download"
+                                           href="{{ srreview.file_upload.url }}"> {{ srreview.file_upload|cut:'files/dtapp/SRreview/' }}
+                                        </a>
+                                    </div>
+                                {% else %}
+                                    <div class="">-</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <!-- end page content -->
+
+                <div class="row mt-3 mb-3">
+                    <div class="col-8"><a href="{% url 'dtapp:srReview-list' %}" class="btn btn-primary p-2">목록으로</a>
+                    </div>
+                    {% if srreview.author == user %}
+                        <div class="col-4 d-inline-flex flex-row-reverse">
+                            <!-- Button trigger modal -->
+                            {#                        <button type="button" class="btn btn-primary p-2" data-bs-toggle="modal"#}
+                            {#                                data-bs-target="#exampleModal">#}
+                            {#                            삭제하기#}
+                            {#                        </button>#}
+                            <div class="me-2"><a href="{% url 'dtapp:srReview-delete' srreview.id %}"
+                                                 class="btn btn-primary p-2">삭제하기</a></div>
+                            <div class="me-2"><a href="{% url 'dtapp:srReview-update' srreview.id %}"
+                                                 class="btn btn-primary p-2">수정하기</a></div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal(삭제하기) -->
+    {#    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#        <div class="modal-dialog">#}
+    {#            <div class="modal-content">#}
+    {#                <div class="modal-header">#}
+    {#                    <h1 class="modal-title fs-5" id="exampleModalLabel">삭제를 하시겠습니까?</h1>#}
+    {#                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+    {#                </div>#}
+    {#                <div class="modal-body">#}
+    {#                    {{ srreview.title }}#}
+    {#                </div>#}
+    {#                <div class="modal-footer">#}
+    {#                    <a href="{% url 'dtapp:srReview-delete' sr.id %}" class="btn btn-primary">예, 삭제합니다.</a>#}
+    {#                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+{% endblock %}
+
+{# 종속 메뉴 AJAX 코드 #}
+
+
+{% block extra_js %}
+
+{% endblock %}

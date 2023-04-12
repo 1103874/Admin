@@ -1,0 +1,133 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <!-- DataTables -->
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                            <h4 class="mb-sm-0 font-size-18">전사 BP 사례</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
+                                    <li class="breadcrumb-item active">전사 BP 사례</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h4 class="card-title">BP 사례 리스트</h4>
+                                <p class="card-title-desc">
+                                    BP 포상 사례에 대한 내역을 제공합니다.
+                                </p>
+                            </div>
+
+                            <div class="card-body">
+                                <table id="example" class="table table-bordered dt-responsive nowrap w-100 align-middle">
+                                    <thead>
+                                    <tr>
+                                        <th>날짜</th>
+                                        <th>구분</th>
+                                        <th>사례명</th>
+                                        <th>담당</th>
+                                        <th>팀</th>
+                                        <th>성명</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% if page.object_list %}
+                                        {% for sr in page.object_list %}
+                                            <tr>
+                                                <td style="width: 10%">{{ sr.dt }}</td>
+                                                <td style="width: 10%">{{ sr.type }}</td>
+                                                <td style="width: 30%">
+                                                    <a href="{% url 'dtapp:srReview-detail' sr.id %}"
+                                                       class="text-decoration-none"> {{ sr.title }}</a>
+                                                </td>
+                                                <td style="width: 10%">
+                                                    {{ sr.region1 }}{% if sr.region2 %}<br>{{ sr.region2 }}{% endif %}
+                                                    {% if sr.region3 %}<br>{{ sr.region3 }}{% endif %}
+                                                </td>
+                                                <td style="width: 10%">
+                                                    {{ sr.team1 }}{% if sr.team2 %}<br>{{ sr.team2 }}{% endif %}
+                                                    {% if sr.team3 %}<br>{{ sr.team3 }}{% endif %}
+                                                </td>
+                                                <td style="width: 10%">
+                                                    {{ sr.name1 }}{% if sr.name2 %}<br>{{ sr.name2 }}{% endif %}
+                                                    {% if sr.name3 %}<br>{{ sr.name3 }}{% endif %}
+                                                </td>
+                                                {#                                                <td style="width: 10%">{{ sr.dt_created|date:'Y/n/j' }}</td>#}
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}               <!-- 게시글 쿼리셋이 존재하지 않을 때 -->
+                                        <tr class="text-center">
+                                            <td colspan="9">
+                                                작성된 게시글이 없습니다.
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="col-6">
+                                <a href="{% url 'dtapp:srReview-create' %}" class="mdi mdi-pencil btn btn-primary">
+                                    작성하기</a>
+                            </div>
+                            <div class="col-6 d-inline-flex flex-row-reverse">
+                                <a href="{% url 'dtapp:srReview-chart' %}" class="mdi mdi-chart-bar btn btn-primary">
+                                    조직별
+                                    사례 현황</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block extra_js %}
+    <!-- Required datatable js -->
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                order: [], {# 고정된 정렬을 모두 해제 #}
+                {#orderFixed: [[0, ''], [3, '']], {# 고정할 정렬을 선택 #}
+                language: {
+                    {#url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Korean.json'#}
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+

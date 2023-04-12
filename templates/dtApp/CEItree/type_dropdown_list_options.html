@@ -1,0 +1,5 @@
+<option value="">---------</option>
+
+{% for i in work_types %}
+    <option value="{{ i.pk }}">{{ i.name }}</option>
+{% endfor %}

@@ -1,0 +1,259 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <!-- DataTables -->
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- choices css -->
+    <link href="{% static 'libs/choices.js/public/assets/styles/choices.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- color picker css -->
+    <link rel="stylesheet" href="{% static 'libs/@simonwep/pickr/dist/themes/classic.min.css' %}"/>
+    <!-- 'classic' theme -->
+    <link rel="stylesheet" href="{% static 'libs/@simonwep/pickr/dist/themes/monolith.min.css' %}"/>
+    <!-- 'monolith' theme -->
+    <link rel="stylesheet" href="{% static 'libs/@simonwep/pickr/dist/themes/nano.min.css' %}"/> <!-- 'nano' theme -->
+    <!-- datepicker css -->
+    <link rel="stylesheet" href="{% static 'libs/flatpickr/dist/flatpickr.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                            <h4 class="mb-sm-0 font-size-18">프로젝트 현황</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 커뮤니티</a></li>
+                                    <li class="breadcrumb-item active">프로젝트 현황</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- end page title -->
+
+                <!-- start page content -->
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h4 class="card-title">과제 내역</h4>
+                        <p class="card-title-desc">
+                            내용 확인 및 진행사항을 업데이트 합니다.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>구분</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">{{ project.type }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        {#                 프로그래스바 테스트중#}
+                        {#                <div class="card-body">#}
+                        {#                    <div class="position-relative m-4">#}
+                        {#                        <div class="progress" style="height: 1px;">#}
+                        {#                            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25"#}
+                        {#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
+                        {#                        </div>#}
+                        {#                        <button type="button"#}
+                        {#                                class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill"#}
+                        {#                                style="width: 2rem; height:2rem;">1#}
+                        {#                        </button>#}
+                        {#                        <button type="button"#}
+                        {#                                class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill"#}
+                        {#                                style="width: 2rem; height:2rem;">2#}
+                        {#                        </button>#}
+                        {#                        <button type="button"#}
+                        {#                                class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill"#}
+                        {#                                style="width: 2rem; height:2rem;">3#}
+                        {#                        </button>#}
+                        {#                    </div>#}
+                        {#                </div><!-- end card-body -->#}
+
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>진행단계</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">{{ project.status }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>시작일</b></label>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="">{{ project.dt_start }}</div>
+
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>종료일</b></label>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="">{{ project.dt_end }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>과제명</b></label>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="">{{ project.title }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>개요</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="">{{ project.content1|linebreaksbr }}</div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>기대효과</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="">{{ project.content2|linebreaksbr }}</div>
+
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>진행내역</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="">{{ project.content3|linebreaksbr }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>첨부파일</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                {% if project.file_upload %}
+                                    <a class="fas fa-file-download btn btn-outline-primary"
+                                       href="{{ project.file_upload.url }}" role="button" download>
+                                        {{ project.file_upload|cut:'files/dtCommunity/' }}
+                                    </a>
+                                {% else %}
+                                    <div class="">-</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-8"><a href="{% url 'dtCommunity:dtProject-list' %}"
+                                          class="btn btn-primary p-2">목록으로</a>
+                    </div>
+                    {% if project.author == user %}
+                        <div class="col-4 d-inline-flex flex-row-reverse">
+                            {#                <div><a href="{% url 'post-delete' post.id %}" class="btn btn-primary p-2">삭제하기</a></div>#}
+                            <!-- Button trigger modal -->
+                            {#                    <button type="button" class="btn btn-primary p-2" data-bs-toggle="modal"#}
+                            {#                            data-bs-target="#exampleModal">#}
+                            {#                        삭제하기#}
+                            {#                    </button>#}
+                            <div class="me-2"><a href="{% url 'dtCommunity:dtProject-delete' project.id %}"
+                                                 class="btn btn-primary p-2">삭제하기</a></div>
+                            <div class="me-2"><a href="{% url 'dtCommunity:dtProject-update' project.id %}"
+                                                 class="btn btn-primary p-2">수정하기</a></div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- end page content -->
+        </div>
+    </div>
+
+    <!-- Modal(삭제하기) -->
+    {#    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#        <div class="modal-dialog">#}
+    {#            <div class="modal-content">#}
+    {#                <div class="modal-header">#}
+    {#                    <h1 class="modal-title fs-5" id="exampleModalLabel">삭제를 하시겠습니까?</h1>#}
+    {#                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+    {#                </div>#}
+    {#                <div class="modal-body">#}
+    {#                    {{ project.title }}#}
+    {#                </div>#}
+    {#                <div class="modal-footer">#}
+    {#                    <a href="{% url 'dtCommunity:dtProject-delete' project.id %}" class="btn btn-primary">예,#}
+    {#                        삭제합니다.</a>#}
+    {#                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Required datatable js -->
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <!-- Buttons examples -->
+    <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'libs/jszip/dist/jszip.min.js' %}"></script>
+    <script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+    <script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+    <!-- Datatable init js -->
+    <script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+    <!-- choices js -->
+    <script src="{% static 'libs/choices.js/public/assets/scripts/choices.min.js' %}"></script>
+
+    <!-- color picker js -->
+    <script src="{% static 'libs/@simonwep/pickr/dist/pickr.min.js' %}"></script>
+    <script src="{% static 'libs/@simonwep/pickr/dist/pickr.es5.min.js' %}"></script>
+
+    <!-- datepicker js -->
+    <script src="{% static 'libs/flatpickr/dist/flatpickr.min.js' %}"></script>
+
+    <!-- init js -->
+    <script src="{% static 'js/pages/form-advanced.init.js' %}"></script>
+{% endblock %}

@@ -216,3 +216,8 @@ cython_debug/
 
 /migrations/*
 /dtapp/migrations/
+/apps/migrations/
+/auth_SKO/migrations/
+/dtCommunication/migrations/
+/dtCommunity/migrations/
+/media/

@@ -1,0 +1,10 @@
+<div class="container">
+    <form class="" method="post">
+        {% csrf_token %}
+        <span class="content">정말 리뷰를 삭제하시겠습니까?</span>
+        {#        <button class="" type="submit">삭제</button>#}
+        <button class="cp-button warn" type="submit">삭제</button>
+
+        <a class="button" href="{% url 'dtapp:srReview-detail' srreview.id %}">취소</a>
+    </form>
+</div>

@@ -1,0 +1,215 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{#{% block head_title%}#}
+{#{% endblock %}#}
+
+{% block extra_css %}
+    <!-- DataTables -->
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- choices css -->
+    <link href="{% static 'libs/choices.js/public/assets/styles/choices.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- color picker css -->
+    <link rel="stylesheet" href="{% static 'libs/@simonwep/pickr/dist/themes/classic.min.css' %}"/>
+    <!-- 'classic' theme -->
+    <link rel="stylesheet" href="{% static 'libs/@simonwep/pickr/dist/themes/monolith.min.css' %}"/>
+    <!-- 'monolith' theme -->
+    <link rel="stylesheet" href="{% static 'libs/@simonwep/pickr/dist/themes/nano.min.css' %}"/> <!-- 'nano' theme -->
+    <!-- datepicker css -->
+    <link rel="stylesheet" href="{% static 'libs/flatpickr/dist/flatpickr.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid mb-3">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                            <h4 class="mb-sm-0 font-size-18">프로젝트 현황</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 커뮤니티</a></li>
+                                    <li class="breadcrumb-item active">프로젝트 현황</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- end page title -->
+
+                <form method="post" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">과제 등록하기</h4>
+                            <p class="card-title-desc">아래 양식에 맞춰 내용을 자세히 작성합니다.
+                            </p>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"
+                                           style="padding-bottom: 8px"><b>{{ form.type.label }}</b></label>
+                                </div>
+                                <div class="col-lg-11">
+                                    {% for type in form.type %}
+                                        {{ type }}
+                                        &nbsp
+                                        &nbsp
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"
+                                           style="padding-bottom: 8px"><b>{{ form.status.label }}</b></label>
+                                </div>
+                                <div class="col-lg-11">
+                                    {% for status in form.status %}
+                                        {{ status }}
+                                        &nbsp
+                                        &nbsp
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>{{ form.dt_start.label }}</b></label>
+                                </div>
+                                <div class="col-lg-2">
+                                    {{ form.dt_start }}
+
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>{{ form.dt_end.label }}</b></label>
+                                </div>
+                                <div class="col-lg-2">
+                                    {{ form.dt_end }}
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>{{ form.title.label }}</b></label>
+                                </div>
+                                <div class="col-lg-4">
+                                    {{ form.title }}
+                                    {% for error in form.title.errors %}
+                                        <code>&nbsp{{ error }}</code>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>{{ form.content1.label }}</b></label>
+                                </div>
+                                <div class="col-lg-5">
+                                    {{ form.content1 }}
+                                    {% for error in form.content1.errors %}
+                                        <code>&nbsp{{ error }}</code>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>{{ form.content2.label }}</b></label>
+                                </div>
+                                <div class="col-lg-5">
+                                    {{ form.content2 }}
+                                    {% for error in form.content2.errors %}
+                                        <code>&nbsp{{ error }}</code>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>{{ form.content3.label }}</b></label>
+                                </div>
+                                <div class="col-lg-5">
+                                    {{ form.content3 }}
+                                    {% for error in form.content3.errors %}
+                                        <code>&nbsp{{ error }}</code>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>{{ form.file_upload.label }}</b></label>
+                                </div>
+                                <div class="col-lg-5">
+                                    {{ form.file_upload }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary me-1">등록</button>
+                        {#                        <a href="{% url 'dtCommunity:dtProject-list' %}" class="btn btn-primary">뒤로가기</a>#}
+                        <input type="submit" class="btn btn-primary" value="뒤로가기"
+                               onclick="window.history.go(-1); return false;"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Required datatable js -->
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <!-- Buttons examples -->
+    <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'libs/jszip/dist/jszip.min.js' %}"></script>
+    <script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+    <script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+    <!-- Datatable init js -->
+    <script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+    <!-- choices js -->
+    <script src="{% static 'libs/choices.js/public/assets/scripts/choices.min.js' %}"></script>
+
+    <!-- color picker js -->
+    <script src="{% static 'libs/@simonwep/pickr/dist/pickr.min.js' %}"></script>
+    <script src="{% static 'libs/@simonwep/pickr/dist/pickr.es5.min.js' %}"></script>
+
+    <!-- datepicker js -->
+    <script src="{% static 'libs/flatpickr/dist/flatpickr.min.js' %}"></script>
+
+    <!-- init js -->
+    <script src="{% static 'js/pages/form-advanced.init.js' %}"></script>
+{% endblock %}
+

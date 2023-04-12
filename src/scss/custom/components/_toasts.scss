@@ -1,0 +1,73 @@
+// 
+// toasts.scss
+//
+
+body[data-layout-mode="dark"] {
+    .toast, .toast-header{
+        background-color: rgba($gray-dark-300, 0.85);
+        color: $gray-dark-400;
+    }
+
+    .toast-header{
+        color: $gray-dark-500;
+    }
+}
+
+#toast-container > div {
+    -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+            box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+    opacity: 1; }
+    #toast-container > div:hover {
+      -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+              box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+      opacity: 0.9; }
+  
+  #toast-container.toast-top-full-width > div, #toast-container.toast-bottom-full-width > div {
+    min-width: 96%;
+    margin: 4px auto; }
+  
+  .toast-primary {
+    border: 2px solid #556ee6 !important;
+    background-color: rgba(85, 110, 230, 0.8) !important; }
+  
+  .toast-secondary {
+    border: 2px solid #74788d !important;
+    background-color: rgba(116, 120, 141, 0.8) !important; }
+  
+  .toast-success {
+    border: 2px solid #34c38f !important;
+    background-color: rgba(52, 195, 143, 0.8) !important; }
+  
+  .toast-info {
+    border: 2px solid #50a5f1 !important;
+    background-color: rgba(80, 165, 241, 0.8) !important; }
+  
+  .toast-warning {
+    border: 2px solid #f1b44c !important;
+    background-color: rgba(241, 180, 76, 0.8) !important; }
+  
+  .toast-danger {
+    border: 2px solid #f46a6a !important;
+    background-color: rgba(244, 106, 106, 0.8) !important; }
+  
+  .toast-pink {
+    border: 2px solid #e83e8c !important;
+    background-color: rgba(232, 62, 140, 0.8) !important; }
+  
+  .toast-light {
+    border: 2px solid #eff2f7 !important;
+    background-color: rgba(239, 242, 247, 0.8) !important; }
+  
+  .toast-dark {
+    border: 2px solid #343a40 !important;
+    background-color: rgba(52, 58, 64, 0.8) !important; }
+  
+  .toast-error {
+    background-color: rgba(244, 106, 106, 0.8);
+    border: 2px solid #f46a6a; }
+  
+  .toastr-options {
+    padding: 24px;
+    background-color: #f6f8fa;
+    margin-bottom: 0;
+    border: 1px solid #eff2f7; }

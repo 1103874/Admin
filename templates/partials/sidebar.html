@@ -1,0 +1,492 @@
+{% load static %}
+{% block sidebar %}
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="vertical-menu">
+
+        <div data-simplebar class="h-100">
+
+            <!--- Sidemenu -->
+
+
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
+                <ul class="metismenu list-unstyled" id="side-menu">
+
+                    <li class="menu-title" data-key="t-menu">Menu</li>
+
+                    <li>
+                        <a href="{% url 'dashboard' %}">
+                            <i data-feather="home"></i>
+                            <span data-key="t-dashboard">Dashboard</span>
+                        </a>
+                    </li>
+
+                    {#                    <li>#}
+                    {#                        <a href="javascript: void(0);" class="has-arrow">#}
+                    {#                            <i data-feather="file-text"></i>#}
+                    {#                            <span data-key="t-pages">DevOps 커뮤니티</span>#}
+                    {#                        </a>#}
+                    {#                        <ul class="sub-menu" aria-expanded="false">#}
+                    {#                            <li><a href="{% url 'dtCommunity:dtProject-list' %}" data-key="">프로젝트 현황</a></li>#}
+                    {#                                    <li><a href="#" data-key="">Lock Screen</a></li>#}
+                    {#                                    <li><a href="#" data-key="">Log Out</a></li>#}
+                    {#                                    <li><a href="#" data-key="">Confirm Mail</a></li>#}
+                    {#                                    <li><a href="#" data-key="">Email Verification</a></li>#}
+                    {#                                    <li><a href="#" data-key="">Two Step Verification</a></li>#}
+                    {#                        </ul>#}
+                    {#                    </li>#}
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i data-feather="briefcase"></i>
+                            <span data-key="t-apps">DevOps 앱</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow">
+                                    <span data-key="">전사</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'dtapp:processGuide-index' %}" data-key="">
+                                        프로세스 및 가이드</a></li>
+                                    <li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow">
+                                    <span data-key="t-email">기술지원</span>
+                                </a>
+                                {#                                <ul class="sub-menu" aria-expanded="false">#}
+                                {#                                    <li>#}
+                                {#                                        <a href="javascript: void(0);" class="has-arrow">#}
+                                {#                                            <span data-key="">CEI Tree</span>#}
+                                {#                                        </a>#}
+                                {#                                        <ul class="sub-menu ps-3" aria-expanded="false">#}
+                                {#                                            <li><a href="{% url 'dtapp:ceiTree-index' %}" data-key="">#}
+                                {#                                                CEI 개선 사례</a></li>#}
+                                {#                                            <li><a href="{% url 'dtapp:ceiTreeBM-list' %}" data-key="">#}
+                                {#                                                CEI B/M 사례</a></li>#}
+                                {#                                        </ul>#}
+                                {#                                    </li>#}
+                                {#                                </ul>#}
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'dtapp:ceiTree-index' %}" data-key="">
+                                        CEI Tree</a></li>
+                                    <li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow">
+                                    <span data-key="">운용지원</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="#" data-key="t-invoice-list">
+                                        첫번째 앱</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow">
+                                    <span data-key="">경영지원</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'dtapp:srReview-list' %}" data-key="">
+                                        전사 BP 사례</a></li>
+                                    <li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i data-feather="users"></i>
+                            <span data-key="">소통채널</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            {#                            <li><a href="#" data-key="">자유게시판</a></li>#}
+                            <li><a href="#" data-key="">묻고/답하기</a></li>
+                            {#                                    <li><a href="#" data-key="">Lock Screen</a></li>#}
+                            {#                                    <li><a href="#" data-key="">Log Out</a></li>#}
+                            {#                                    <li><a href="#" data-key="">Confirm Mail</a></li>#}
+                            {#                                    <li><a href="#" data-key="">Email Verification</a></li>#}
+                            {#                                    <li><a href="#" data-key="">Two Step Verification</a></li>#}
+                        </ul>
+                    </li>
+
+                    {#                    여기부터 admin 계정만 볼 수 있는 메뉴#}
+                    {#                    여기부터 admin 계정만 볼 수 있는 메뉴#}
+                    {#                    여기부터 admin 계정만 볼 수 있는 메뉴#}
+                    {#                    여기부터 admin 계정만 볼 수 있는 메뉴#}
+
+                    {% if user.username == 'admin' %}
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="file-text"></i>
+                                <span data-key="t-pages">Pages</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'pages:pages.starterpage' %}" data-key="t-starter-page">Starter
+                                    Page</a>
+                                </li>
+                                <li><a href="{% url 'pages:pages.maintenance' %}"
+                                       data-key="t-maintenance">Maintenance</a>
+                                </li>
+                                <li><a href="{% url 'pages:pages.comingsoon' %}" data-key="t-coming-soon">Coming
+                                    Soon</a>
+                                </li>
+                                <li><a href="{% url 'pages:pages.timeline' %}"
+                                       data-key="t-timeline">Timeline</a></li>
+                                <li><a href="{% url 'pages:pages.faqs' %}" data-key="t-faqs">FAQs</a></li>
+                                <li><a href="{% url 'pages:pages.pricing' %}" data-key="t-pricing">Pricing</a>
+                                </li>
+                                <li><a href="{% url 'pages:pages.404error' %}" data-key="t-error-404">Error
+                                    404</a></li>
+                                <li><a href="{% url 'pages:pages.500error' %}" data-key="t-error-500">Error
+                                    500</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="grid"></i>
+                                <span data-key="t-apps">Apps</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li>
+                                    <a href="{% url 'apps:calendar' %}">
+                                        <span data-key="t-calendar">Calendar</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{% url 'apps:chat' %}">
+                                        <span data-key="t-chat">Chat</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow">
+                                        <span data-key="t-email">Email</span>
+                                    </a>
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        <li><a href="{% url 'apps:email.inbox' %}" data-key="t-inbox">Inbox</a>
+                                        </li>
+                                        <li><a href="{% url 'apps:email.read' %}" data-key="t-read-email">Read
+                                            Email</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow">
+                                        <span data-key="t-invoices">Invoices</span>
+                                    </a>
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        <li><a href="{% url 'apps:invoice.list' %}" data-key="t-invoice-list">Invoice
+                                            List</a></li>
+                                        <li><a href="{% url 'apps:invoice.details' %}"
+                                               data-key="t-invoice-detail">Invoice
+                                            Detail</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow">
+                                        <span data-key="t-contacts">Contacts</span>
+                                    </a>
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        <li><a href="{% url 'apps:contacts.usergrid' %}" data-key="t-user-grid">User
+                                            Grid</a></li>
+                                        <li><a href="{% url 'apps:contacts.userlist' %}" data-key="t-user-list">User
+                                            List</a></li>
+                                        <li><a href="{% url 'apps:contacts.profile' %}" data-key="t-profile">Profile</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="users"></i>
+                                <span data-key="t-authentication">Authentication</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'apps:authentication.auth-login' %}" data-key="t-login">Login</a>
+                                </li>
+                                <li><a href="{% url 'apps:authentication.auth-register' %}"
+                                       data-key="t-register">Sign
+                                    Up</a></li>
+                                <li><a href="{% url 'apps:authentication.auth-recoverpassword' %}"
+                                       data-key="t-recover-password">Recover Password</a></li>
+                                <li><a href="{% url 'apps:authentication.auth-lockscreen' %}"
+                                       data-key="t-lock-screen">Lock
+                                    Screen</a></li>
+                                <li><a href="{% url 'apps:authentication.auth-logout' %}" data-key="t-logout">Log
+                                    Out</a>
+                                </li>
+                                <li><a href="{% url 'apps:authentication.auth-confirm-mail' %}"
+                                       data-key="t-confirm-mail">Confirm
+                                    Mail</a></li>
+                                <li><a href="{% url 'apps:authentication.auth-email-verification' %}"
+                                       data-key="t-email-verification">Email Verification</a></li>
+                                <li><a href="{% url 'apps:authentication.auth-two-step-verification' %}"
+                                       data-key="t-two-step-verification">Two Step Verification</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="file-text"></i>
+                                <span data-key="t-pages">Pages</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'pages:pages.starterpage' %}" data-key="t-starter-page">Starter
+                                    Page</a>
+                                </li>
+                                <li><a href="{% url 'pages:pages.maintenance' %}"
+                                       data-key="t-maintenance">Maintenance</a>
+                                </li>
+                                <li><a href="{% url 'pages:pages.comingsoon' %}" data-key="t-coming-soon">Coming
+                                    Soon</a>
+                                </li>
+                                <li><a href="{% url 'pages:pages.timeline' %}"
+                                       data-key="t-timeline">Timeline</a></li>
+                                <li><a href="{% url 'pages:pages.faqs' %}" data-key="t-faqs">FAQs</a></li>
+                                <li><a href="{% url 'pages:pages.pricing' %}" data-key="t-pricing">Pricing</a>
+                                </li>
+                                <li><a href="{% url 'pages:pages.404error' %}" data-key="t-error-404">Error
+                                    404</a></li>
+                                <li><a href="{% url 'pages:pages.500error' %}" data-key="t-error-500">Error
+                                    500</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'apps:horizontal' %}">
+                                <i data-feather="layout"></i>
+                                <span data-key="t-horizontal">Horizontal</span>
+                            </a>
+                        </li>
+
+                        <li class="menu-title mt-2" data-key="t-components">Elements</li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="briefcase"></i>
+                                <span data-key="t-components">Components</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'elements:elements.components.alerts' %}"
+                                       data-key="t-alerts">Alerts</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.buttons' %}"
+                                       data-key="t-buttons">Buttons</a></li>
+                                <li><a href="{% url 'elements:elements.components.cards' %}"
+                                       data-key="t-cards">Cards</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.carousel' %}"
+                                       data-key="t-carousel">Carousel</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.dropdowns' %}"
+                                       data-key="t-dropdowns">Dropdowns</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.grid' %}" data-key="t-grid">Grid</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.images' %}"
+                                       data-key="t-images">Images</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.modals' %}"
+                                       data-key="t-modals">Modals</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.offcanvas' %}"
+                                       data-key="t-offcanvas">Offcanvas</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.progressbars' %}"
+                                       data-key="t-progress-bars">Progress Bars</a></li>
+                                <li><a href="{% url 'elements:elements.components.tabs' %}"
+                                       data-key="t-tabs-accordions">Tabs
+                                    & Accordions</a></li>
+                                <li><a href="{% url 'elements:elements.components.typography' %}"
+                                       data-key="t-typography">Typography</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.video' %}"
+                                       data-key="t-video">Video</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.components.general' %}"
+                                       data-key="t-general">General</a></li>
+                                <li><a href="{% url 'elements:elements.components.colors' %}"
+                                       data-key="t-colors">Colors</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="gift"></i>
+                                <span data-key="t-ui-elements">Extended</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'elements:elements.extended.lightbox' %}"
+                                       data-key="t-lightbox">Lightbox</a></li>
+                                <li><a href="{% url 'elements:elements.extended.rangeslider' %}"
+                                       data-key="t-range-slider">Range
+                                    Slider</a></li>
+                                <li><a href="{% url 'elements:elements.extended.sweetalerts2' %}"
+                                       data-key="t-sweet-alert">SweetAlert
+                                    2</a></li>
+                                <li><a href="{% url 'elements:elements.extended.sessiontimeout' %}"
+                                       data-key="t-session-timeout">Session Timeout</a></li>
+                                <li><a href="{% url 'elements:elements.extended.rating' %}"
+                                       data-key="t-rating">Rating</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.extended.notifications' %}"
+                                       data-key="t-notifications">Notifications</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);">
+                                <i data-feather="box"></i>
+                                <span class="badge rounded-pill bg-soft-danger text-danger float-end">7</span>
+                                <span data-key="t-forms">Forms</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'elements:elements.forms.basic_elements' %}"
+                                       data-key="t-form-elements">Basic
+                                    Elements</a></li>
+                                <li><a href="{% url 'elements:elements.forms.validation' %}"
+                                       data-key="t-form-validation">Validation</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.forms.advancedplugins' %}"
+                                       data-key="t-form-advanced">Advanced Plugins</a></li>
+                                <li><a href="{% url 'elements:elements.forms.editors' %}"
+                                       data-key="t-form-editors">Editors</a></li>
+                                <li><a href="{% url 'elements:elements.forms.fileupload' %}"
+                                       data-key="t-form-upload">File
+                                    Upload</a></li>
+                                <li><a href="{% url 'elements:elements.forms.wizard' %}"
+                                       data-key="t-form-wizard">Wizard</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.forms.mask' %}" data-key="t-form-mask">Mask</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="sliders"></i>
+                                <span data-key="t-tables">Tables</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'elements:elements.tables.bootstrap_basic' %}"
+                                       data-key="t-basic-tables">Bootstrap Basic</a></li>
+                                <li><a href="{% url 'elements:elements.tables.datatables' %}"
+                                       data-key="t-data-tables">DataTables</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.tables.responsive_tables' %}"
+                                       data-key="t-responsive-table">Responsive</a></li>
+                                <li><a href="{% url 'elements:elements.tables.editable_tables' %}"
+                                       data-key="t-editable-table">Editable</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="pie-chart"></i>
+                                <span data-key="t-charts">Charts</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'elements:elements.charts.apexcharts' %}"
+                                       data-key="t-apex-charts">Apexcharts</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.charts.echarts' %}"
+                                       data-key="t-e-charts">Echarts</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.charts.chartjs' %}"
+                                       data-key="t-chartjs-charts">Chartjs</a>
+                                </li>
+                                <li><a href="{% url 'elements:elements.charts.jqueryknob' %}"
+                                       data-key="t-knob-charts">Jquery
+                                    Knob</a></li>
+                                <li><a href="{% url 'elements:elements.charts.sparkline' %}"
+                                       data-key="t-sparkline-charts">Sparkline</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="cpu"></i>
+                                <span data-key="t-icons">Icons</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'elements:elements.icons.boxicons' %}"
+                                       data-key="t-boxicons">Boxicons</a></li>
+                                <li><a href="{% url 'elements:elements.icons.materialdesign' %}"
+                                       data-key="t-material-design">Material Design</a></li>
+                                <li><a href="{% url 'elements:elements.icons.dripicons' %}"
+                                       data-key="t-dripicons">Dripicons</a></li>
+                                <li><a href="{% url 'elements:elements.icons.fontawesome' %}"
+                                       data-key="t-font-awesome">Font
+                                    Awesome 5</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="map"></i>
+                                <span data-key="t-maps">Maps</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'elements:elements.maps.googlemaps' %}" data-key="t-g-maps">Google
+                                    Maps</a></li>
+                                <li><a href="{% url 'elements:elements.maps.vectormaps' %}" data-key="t-v-maps">Vector
+                                    Maps</a></li>
+                                <li><a href="{% url 'elements:elements.maps.leaflet' %}" data-key="t-l-maps">Leaflet
+                                    Maps</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="share-2"></i>
+                                <span data-key="t-multi-level">Multi Level</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="javascript: void(0);" data-key="t-level-1-1">Level 1.1</a></li>
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow" data-key="t-level-1-2">Level
+                                        1.2</a>
+                                    <ul class="sub-menu" aria-expanded="true">
+                                        <li><a href="javascript: void(0);" data-key="t-level-2-1">Level 2.1</a>
+                                        </li>
+                                        <li><a href="javascript: void(0);" data-key="t-level-2-2">Level 2.2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        </ul>
+
+                        <div class="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5">
+                            <div class="card-body">
+                                <img src="{% static 'images/giftbox.png' %}" alt="">
+                                <div class="mt-4">
+                                    <h5 class="alertcard-title font-size-16">Unlimited Access</h5>
+                                    <p class="font-size-13">Upgrade your plan from a Free trial, to select
+                                        ‘Business
+                                        Plan’.</p>
+                                    <a href="#!" class="btn btn-primary mt-2">Upgrade Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+            </div>
+            <!-- Sidebar -->
+        </div>
+    </div>
+    <!-- Left Sidebar End -->
+{% endblock %}

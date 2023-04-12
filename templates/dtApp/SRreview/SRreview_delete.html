@@ -1,0 +1,63 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                            <h4 class="mb-sm-0 font-size-18">전사 BP 사례</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
+                                    <li class="breadcrumb-item active">전사 BP 사례</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- end page title -->
+
+                <!-- start page content -->
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h4 class="card-title">삭제하기</h4>
+                        <p class="card-title-desc">
+                            작성한 게시물을 삭제합니다.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <form class="" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>정말 게시물을 삭제하시겠습니까? </b></label>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <button type="submit" class="mdi mdi-trash-can btn btn-danger me-1"> 예, 삭제합니다
+                                    </button>
+                                                            <a href="{% url 'dtapp:srReview-detail' srreview.id %}" class="btn btn-secondary">아니오</a>
+{#                                    <input type="submit" class="btn btn-secondary" value="아니오"#}
+{#                                           onclick="window.history.go(-1); return false;"/>#}
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<!-- end page content -->

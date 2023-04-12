@@ -1,0 +1,271 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
+                            <h4 class="mb-sm-0 font-size-18">CEI B/M 사례</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">CEI Tree</a></li>
+                                    <li class="breadcrumb-item active">CEI B/M 사례</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- end page title -->
+
+                <!-- start page content -->
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h4 class="card-title">진행 내역</h4>
+                        <p class="card-title-desc">
+                            내용 확인 및 진행사항을 업데이트 합니다.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>B/M 사례명</b></label>
+                            </div>
+                            <div class="col-lg-4">
+                                <a href="{% url 'dtapp:ceiTreeBM-detail2' cei.title.pk %}">{{ cei.title }}</a>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>담당</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">{{ cei.region }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>시작일</b></label>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="">{{ cei.dt_start }}</div>
+
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>종료일</b></label>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="">{{ cei.dt_end }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>적용 Cell 수</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">{{ cei.cell }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>제목</b></label>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="">{{ cei.title2 }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>내용</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="">{{ cei.content1|linebreaksbr }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>CEI(전)</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">{{ cei.cei_before }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>CEI(후)</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">{{ cei.cei_after }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>BER(전)</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">{{ cei.ber_before }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>BER(후)</b></label>
+                            </div>
+                            <div class="col-lg-11">
+                                <div class="">{{ cei.ber_after }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>미리보기</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                {% if cei.image_upload %}
+                                    <!-- Button trigger modal -->
+                                    <div class="">
+                                        <a class="fas fa-eye" data-bs-toggle="modal"
+                                           data-bs-target="#exampleModal_{{ cei.pk }}"
+                                           href="{{ cei.image_upload.url }}"> {{ cei.image_upload|cut:'files/dtapp/CEItree/image/' }}
+                                        </a>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal_{{ cei.pk }}"
+                                         tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5"
+                                                        id="exampleModalLabel">
+                                                        미리보기</h1>
+                                                    <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ cei.image_upload.url }}"
+                                                         width="100%">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+                                                        닫기
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="">-</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-1">
+                                <label class="position-absolute top-50 translate-middle-y"><b>첨부파일</b></label>
+                            </div>
+                            <div class="col-lg-5">
+                                {% if cei.file_upload %}
+                                    <div class="">
+                                        <a class="fas fa-file-download"
+                                           href="{{ cei.file_upload.url }}"> {{ cei.file_upload|cut:'files/dtapp/CEItree/' }}
+                                        </a>
+                                    </div>
+                                {% else %}
+                                    <div class="">-</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                    <div class="col-8">
+                        <a href="{% url 'dtapp:ceiTreeBM-list' %}"
+                           class="btn btn-primary p-2">목록으로</a>
+                        {#                        <input type="submit" class="btn btn-primary" value="뒤로가기"#}
+                        {#                               onclick="window.history.go(-1); return false;"/>#}
+                    </div>
+
+                    {% if cei.author == user %}
+                        <div class="col-4 d-inline-flex flex-row-reverse">
+                            {#                <div><a href="{% url 'post-delete' post.id %}" class="btn btn-primary p-2">삭제하기</a></div>#}
+                            <!-- Button trigger modal -->
+                            {#                    <button type="button" class="btn btn-primary p-2" data-bs-toggle="modal"#}
+                            {#                            data-bs-target="#exampleModal">#}
+                            {#                        삭제하기#}
+                            {#                    </button>#}
+                            <div class="me-2"><a href="{% url 'dtapp:ceiTreeBM-delete' cei.id %}"
+                                                 class="btn btn-primary p-2">삭제하기</a></div>
+                            <div class="me-2"><a href="{% url 'dtapp:ceiTreeBM-update' cei.id %}"
+                                                 class="btn btn-primary p-2">수정하기</a></div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- end page content -->
+        </div>
+    </div>
+
+    <!-- Modal(삭제하기) -->
+    {#    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#        <div class="modal-dialog">#}
+    {#            <div class="modal-content">#}
+    {#                <div class="modal-header">#}
+    {#                    <h1 class="modal-title fs-5" id="exampleModalLabel">삭제를 하시겠습니까?</h1>#}
+    {#                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+    {#                </div>#}
+    {#                <div class="modal-body">#}
+    {#                    {{ project.title }}#}
+    {#                </div>#}
+    {#                <div class="modal-footer">#}
+    {#                    <a href="{% url 'dtCommunity:dtProject-delete' project.id %}" class="btn btn-primary">예,#}
+    {#                        삭제합니다.</a>#}
+    {#                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
