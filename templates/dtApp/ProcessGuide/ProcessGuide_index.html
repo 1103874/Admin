@@ -3,7 +3,7 @@
 
 {% block extra_css %}
     <head>
-        <link href="https://unpkg.com/vis-network@7.7.0/styles/vis-network.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'css/vis-network.min.css' %}" type="text/css" />
     </head>
 {% endblock %}
 
@@ -65,8 +65,8 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script type="text/javascript"
-            src="https://unpkg.com/vis-network@7.7.0/standalone/umd/vis-network.min.js"></script>
+    <script src="{% static 'js/pages/vis-network.min.js' %}"></script>
+
     <!--Vis.js 코드 -->
     <script>
         color_1 = "black";
