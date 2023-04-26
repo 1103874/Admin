@@ -291,10 +291,11 @@ class ProcessGuideList(models.Model):
     team = models.CharField(max_length=20, verbose_name='주관부서')
     title = models.CharField(max_length=100, unique=True, verbose_name='제목',
                              error_messages={'unique': '이미 존재하는 제목입니다.'})
-    content = models.TextField(verbose_name='정립 기준')
+    content = models.TextField(verbose_name='정립기준')
+    content2 = models.TextField(verbose_name='내용')
 
-    dt_start = models.DateField(verbose_name='유효기간(시작)')
-    dt_end = models.DateField(verbose_name='유효기간(종료)', default='9999-12-31')
+    # dt_start = models.DateField(verbose_name='유효기간(시작)')
+    # dt_end = models.DateField(verbose_name='유효기간(종료)', default='9999-12-31')
 
     file_upload = models.FileField(verbose_name='첨부파일(문서)', upload_to='files/dtapp/ProcessGuide', blank=True,
                                    validators=[file_size])

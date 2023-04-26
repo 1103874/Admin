@@ -107,7 +107,8 @@ class ceiTreeBMListForm(forms.ModelForm):
 class ProcessGuideListForm(forms.ModelForm):
     class Meta:
         model = ProcessGuideList
-        fields = ['team', 'type1', 'type2', 'type3', 'type4', 'title', 'content', 'dt_start', 'dt_end',
+        fields = ['team', 'type1', 'type2', 'type3', 'type4', 'title', 'content', 'content2',
+                  # 'dt_start', 'dt_end',
                   'file_upload']
         widgets = {
             # 'region_type': forms.RadioSelect(attrs={'class': ''}),
@@ -119,9 +120,10 @@ class ProcessGuideListForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '제목을 입력하세요.'}),
             'content': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'ex) 00년 0월 SKO ORTM 회의체, 00년 0월 SKT AAR 등', 'rows': 2}),
-
-            'dt_start': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'dt_end': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'content2': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': '내용을 입력하세요.', 'rows': 3}),
+            # 'dt_start': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            # 'dt_end': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
 
         def __init__(self, *args, **kwargs):

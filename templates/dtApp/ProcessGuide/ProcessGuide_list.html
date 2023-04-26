@@ -19,13 +19,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
-                            <h4 class="mb-sm-0 font-size-18">프로세스 및 가이드</h4>
+                            <h4 class="mb-sm-0 font-size-18">가이드 및 프로세스</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">전사</a></li>
-                                    <li class="breadcrumb-item active">프로세스 및 가이드</li>
+                                    <li class="breadcrumb-item active">가이드 및 프로세스</li>
                                 </ol>
                             </div>
                         </div>
@@ -38,79 +38,85 @@
                     <div class="col-12">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <h4 class="card-title">전사 Process & Guide 리스트</h4>
+                                <h4 class="card-title">전사 Guide & Process 리스트</h4>
                                 <p class="card-title-desc">
-                                    프로세스 및 가이드에 대한 내역을 제공합니다.
+                                    가이드 및 프로세스에 대한 내역을 제공합니다.
                                 </p>
                             </div>
 
-                            <div class="card-body">
-                                <table id="example" class="table table-bordered dt-responsive nowrap w-100 text-center">
-                                    <thead>
-                                    <tr>
-                                        <th>지원담당</th>
-                                        <th>주관부서</th>
-                                        <th>구분</th>
-                                        <th>분류</th>
-                                        <th>세부분류</th>
-                                        <th>제목</th>
-                                        <th>정립기준</th>
-                                        <th>유효기간</th>
-                                        <th>관련문서</th>
-                                        <th>담당자</th>
-                                        <th>등록일</th>
-                                        <th>비고</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody class="align-middle">
-                                    {% if page.object_list %}
-                                        {% for process in page.object_list %}
-                                            <tr>
-                                                <td style="width: 5%">{{ process.type2 }}</td>
-                                                <td style="width: 10%">{{ process.team }}</td>
-                                                <td style="width: 5%">{{ process.type1 }}</td>
-                                                <td style="width: 5%">{{ process.type3 }}</td>
-                                                <td style="width: 5%">{{ process.type4 }}</td>
-                                                <td class="text-start" style="width: 30%">{{ process.title }}</td>
-                                                <td class="text-start"
-                                                    style="width: 20%">{{ process.content|linebreaksbr }}</td>
-                                                <td style="width: 5%">{{ process.dt_start|date:"Y/n/j" }}~{{ process.dt_end|date:"Y/n/j" }}</td>
-                                                <td style="width: 5%">
-                                                    {% if process.file_upload %}
-                                                        <div style="font-size: 30px">
-                                                            <a class=""
-                                                               href="{{ process.file_upload.url }}"
-                                                               download>
-                                                                <i class="bx bx-download"></i>
-                                                            </a>
-                                                        </div>
-                                                    {% else %}
-                                                        <div class="">-</div>
-                                                    {% endif %}</td>
-                                                <td style="width: 5%">{{ process.author }}</td>
-                                                <td style="width: 5%;">{{ process.dt_created|date:"Y/n/j" }}</td>
-                                                    <td>
-                                                {% if process.author == user or user.username == "admin" or user.first_name == "최종언" or user.first_name == "인병렬"%}
-                                                        <a href="{% url 'dtapp:processGuide-update' process.id %}"
-                                                           class="mdi mdi-pencil btn btn-primary"><span
-                                                                data-key="t-edit"></span></a>
-                                                        <a href="{% url 'dtapp:processGuide-delete' process.id %}"
-                                                           class="mdi mdi-delete btn btn-danger"><span
-                                                                data-key="t-trash"></span></a>
-                                                {% endif %}
-                                                    </td>
-                                            </tr>
-                                        {% endfor %}
-                                    {% else %}               <!-- 게시글 쿼리셋이 존재하지 않을 때 -->
-                                        <tr class="text-center">
-                                            <td colspan="12">
-                                                작성된 게시글이 없습니다.
-                                            </td>
+                            <div style="overflow-x: auto;">
+                                <div class="card-body">
+                                    <table id="example"
+                                           class="table table-bordered dt-responsive nowrap w-100 text-center">
+                                        <thead>
+                                        <tr>
+                                            <th>지원담당</th>
+                                            <th>주관부서</th>
+                                            <th>구분</th>
+                                            <th>분류</th>
+                                            <th>세부분류</th>
+                                            <th>제목</th>
+                                            <th>내용</th>
+                                            <th>정립기준</th>
+                                            <th>관련문서</th>
+                                            <th>담당자</th>
+                                            <th>등록일</th>
+                                            <th>비고</th>
                                         </tr>
-                                    {% endif %}
-                                    </tbody>
-                                </table>
+                                        </thead>
+
+                                        <tbody class="align-middle">
+                                        {% if page.object_list %}
+                                            {% for process in page.object_list %}
+                                                <tr>
+                                                    <td style="width: 5%">{{ process.type2 }}</td>
+                                                    <td style="width: 10%">{{ process.team }}</td>
+                                                    <td style="width: 5%">{{ process.type1 }}</td>
+                                                    <td style="width: 5%">{{ process.type3 }}</td>
+                                                    <td style="width: 5%">{{ process.type4 }}</td>
+                                                    <td class="text-start">{{ process.title }}</td>
+                                                    <td class="text-start"
+                                                    >
+                                                        <div style="max-width: 300px; max-height: 200px; overflow: auto">{{ process.content2|linebreaksbr }}</div>
+                                                    </td>
+                                                    <td class="text-start">{{ process.content|linebreaksbr }}</td>
+                                                    {#                                                <td style="width: 5%">{{ process.dt_start|date:"Y/n/j" }}~{{ process.dt_end|date:"Y/n/j" }}</td>#}
+                                                    <td style="width: 5%">
+                                                        {% if process.file_upload %}
+                                                            <div style="font-size: 30px">
+                                                                <a class=""
+                                                                   href="{{ process.file_upload.url }}"
+                                                                   download>
+                                                                    <i class="bx bx-download"></i>
+                                                                </a>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="">-</div>
+                                                        {% endif %}</td>
+                                                    <td style="width: 5%">{{ process.author }}</td>
+                                                    <td style="width: 5%;">{{ process.dt_created|date:"Y/n/j" }}</td>
+                                                    <td>
+                                                        {% if process.author == user or user.username == "admin" or user.first_name == "최종언" or user.first_name == "인병렬" %}
+                                                            <a href="{% url 'dtapp:processGuide-update' process.id %}"
+                                                               class="mdi mdi-pencil btn btn-primary"><span
+                                                                    data-key="t-edit"></span></a>
+                                                            <a href="{% url 'dtapp:processGuide-delete' process.id %}"
+                                                               class="mdi mdi-delete btn btn-danger"><span
+                                                                    data-key="t-trash"></span></a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}               <!-- 게시글 쿼리셋이 존재하지 않을 때 -->
+                                            <tr class="text-center">
+                                                <td colspan="12">
+                                                    작성된 게시글이 없습니다.
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="row justify-content-between">

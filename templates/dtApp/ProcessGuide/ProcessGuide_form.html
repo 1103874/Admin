@@ -22,13 +22,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between pb-0">
-                            <h4 class="mb-sm-0 font-size-18">프로세스 및 가이드</h4>
+                            <h4 class="mb-sm-0 font-size-18">가이드 및 프로세스</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">DevOps 앱</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">전사</a></li>
-                                    <li class="breadcrumb-item active">프로세스 및 가이드</li>
+                                    <li class="breadcrumb-item active">가이드 및 프로세스</li>
                                 </ol>
                             </div>
                         </div>
@@ -135,6 +135,18 @@
 
                             <div class="row mt-3">
                                 <div class="col-lg-1">
+                                    <label class="position-absolute top-50 translate-middle-y"><b>{{ form.content2.label }}</b></label>
+                                </div>
+                                <div class="col-lg-4">
+                                    {{ form.content2 }}
+                                    {% for error in form.content2.errors %}
+                                        <code>&nbsp{{ error }}</code>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-lg-1">
                                     <label class="position-absolute top-50 translate-middle-y"><b>{{ form.content.label }}</b></label>
                                 </div>
                                 <div class="col-lg-4">
@@ -145,17 +157,17 @@
                                 </div>
                             </div>
 
-                            <div class="row mt-3">
-                                <div class="col-lg-1">
-                                    <label class="position-absolute top-50 translate-middle-y"><b>유효기간</b></label>
-                                </div>
-                                <div class="col-lg-2">
-                                    {{ form.dt_start }}
-                                </div>
-                                <div class="col-lg-2">
-                                    {{ form.dt_end }}
-                                </div>
-                            </div>
+{#                            <div class="row mt-3">#}
+{#                                <div class="col-lg-1">#}
+{#                                    <label class="position-absolute top-50 translate-middle-y"><b>유효기간</b></label>#}
+{#                                </div>#}
+{#                                <div class="col-lg-2">#}
+{#                                    {{ form.dt_start }}#}
+{#                                </div>#}
+{#                                <div class="col-lg-2">#}
+{#                                    {{ form.dt_end }}#}
+{#                                </div>#}
+{#                            </div>#}
 
                             <div class="row mt-3">
                                 <div class="col-lg-1">
