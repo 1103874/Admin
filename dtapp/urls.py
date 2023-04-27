@@ -41,7 +41,6 @@ urlpatterns = [
     path('ceiTree/<int:cei_id>/', views.ceiTreeDetailView2.as_view(), name='ceiTreeBM-detail2'),
 
     path('ceiTree/download/', export.export_cei_tree, name='ceiTree-export'),
-    path('ceiTree/BM/download/', export.export_cei_tree_BM, name='ceiTreeBM-export'),
 
     ## 전사 Process & Guied App
     path('process/index/', views.ProcessGuide_index, name='processGuide-index'),
@@ -55,5 +54,7 @@ urlpatterns = [
 
     path('process/ajax/load-types', views.load_process_types, name='process_ajax_load_types'),  # 구분 AJAX
     path('process/ajax/load-subtypes', views.load_process_subtypes, name='process_ajax_load_subtypes'),  # 세부구분 AJAX
+
+    path('process/download/', export.export_processGuide, name='processGuide-export'),
 
 ]

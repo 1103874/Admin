@@ -70,15 +70,12 @@
                                             {% for process in page.object_list %}
                                                 <tr>
                                                     <td style="width: 5%">{{ process.type2 }}</td>
-                                                    <td style="width: 10%">{{ process.team }}</td>
-                                                    <td style="width: 5%">{{ process.type1 }}</td>
-                                                    <td style="width: 5%">{{ process.type3 }}</td>
-                                                    <td style="width: 5%">{{ process.type4 }}</td>
+                                                    <td>{{ process.team }}</td>
+                                                    <td>{{ process.type1 }}</td>
+                                                    <td>{{ process.type3 }}</td>
+                                                    <td>{{ process.type4 }}</td>
                                                     <td class="text-start">{{ process.title }}</td>
-                                                    <td class="text-start"
-                                                    >
-                                                        <div style="max-width: 300px; max-height: 200px; overflow: auto">{{ process.content2|linebreaksbr }}</div>
-                                                    </td>
+                                                    <td class="text-start">{{ process.content2|linebreaksbr }}</td>
                                                     <td class="text-start">{{ process.content|linebreaksbr }}</td>
                                                     {#                                                <td style="width: 5%">{{ process.dt_start|date:"Y/n/j" }}~{{ process.dt_end|date:"Y/n/j" }}</td>#}
                                                     <td style="width: 5%">
@@ -94,8 +91,8 @@
                                                             <div class="">-</div>
                                                         {% endif %}</td>
                                                     <td style="width: 5%">{{ process.author }}</td>
-                                                    <td style="width: 5%;">{{ process.dt_created|date:"Y/n/j" }}</td>
-                                                    <td>
+                                                    <td style="width: 5%;">{{ process.dt_created|date:"y/m/j" }}</td>
+                                                    <td style="width: 10%">
                                                         {% if process.author == user or user.username == "admin" or user.first_name == "최종언" or user.first_name == "인병렬" %}
                                                             <a href="{% url 'dtapp:processGuide-update' process.id %}"
                                                                class="mdi mdi-pencil btn btn-primary"><span

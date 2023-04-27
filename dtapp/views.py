@@ -566,7 +566,7 @@ class processGuideDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView
     # 'UserPassesTestMixin'은 개발자가 정의하는 커스텀 테스트('test_func')를 통과하는 유저만 뷰에 접근이 가능
     def test_func(self):  # test_func는 뷰에 접근할 수 있으면 True, 없으면 False 리턴
         sr = self.get_object()
-        return (sr.author == self.request.user) + (self.request.user.username=='admin') + (self.request.user.first_name=='인병렬') + (self.request.user.first_name=='최종언')  # 모델의 글쓴이와 로그인한 user가 동일하면 True, 아니면 False
+        return (sr.author == self.request.user) + (self.request.user.username=='admin') + (self.request.user.first_name=='인병렬') + (self.request.user.first_name=='최종언') + (self.request.user.first_name=='김희중') + (self.request.user.first_name=='조효상')  # 모델의 글쓴이와 로그인한 user가 동일하면 True, 아니면 False
 
 ## ProcessGuide Update
 class processGuideUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -583,6 +583,6 @@ class processGuideUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView
     # 'UserPassesTestMixin'은 개발자가 정의하는 커스텀 테스트('test_func')를 통과하는 유저만 뷰에 접근이 가능
     def test_func(self):  # test_func는 뷰에 접근할 수 있으면 True, 없으면 False 리턴
         sr = self.get_object()
-        return (sr.author == self.request.user) + (self.request.user.username=='admin') + (self.request.user.first_name=='인병렬') + (self.request.user.first_name=='최종언')  # 모델의 글쓴이와 로그인한 user가 동일하면 True, 아니면 False
+        return (sr.author == self.request.user) + (self.request.user.username=='admin') + (self.request.user.first_name=='인병렬') + (self.request.user.first_name=='최종언') + (self.request.user.first_name=='김희중') + (self.request.user.first_name=='조효상')  # 모델의 글쓴이와 로그인한 user가 동일하면 True, 아니면 False
 
 ## end 전사 Process & Guide App

@@ -1,7 +1,8 @@
 import pandas as pd
 from django.http import HttpResponse
 
-from dtapp.models import CeiTreeList, CeiTreeBMList
+from dtapp.models import CeiTreeList, ProcessGuideList
+
 
 ## CEI Tree Excel Export
 def export_cei_tree(request):
@@ -32,24 +33,21 @@ def export_cei_tree(request):
     cei_tree_df.to_excel(response, index=False)
     return response
 
-def export_cei_tree_BM(request):
-    cei_tree_data = CeiTreeBMList.objects.values("title_id__title", "title_id__work_group_id__name", "title_id__work_type_id__name", "region", "author_id__username", "dt_start", "dt_end", "cell", "title2", "content1", "cei_before", "cei_after", "ber_before", "ber_after")
-    cei_tree_df = pd.DataFrame(list(cei_tree_data))
-    cei_tree_df = cei_tree_df[['title_id__title', 'title_id__work_group_id__name', 'title_id__work_type_id__name', 'region', "author_id__username", 'dt_start', 'dt_end', 'cell', 'title2', 'content1', 'cei_before', 'cei_after', 'ber_before', 'ber_after']]
 
-    # Add cei_gap and ber_gap columns
-    cei_tree_df['cei_gap'] = cei_tree_df['cei_after'] - cei_tree_df['cei_before']
-    cei_tree_df['ber_gap'] = cei_tree_df['ber_after'] - cei_tree_df['ber_before']
+## Process & Guide Excel Export
+def export_processGuide(request):
+    processGuide_data = ProcessGuideList.objects.values("type2__name", "team", "type1__name", "type3__name", "type4", "title", "content2", "content", "author__first_name", "dt_created")
+    processGuide_df = pd.DataFrame(list(processGuide_data))
 
-    # 추가된 cei_gap, ber_gap 컬럼을 포함하여 df 순서 재구성
-    cei_tree_df = cei_tree_df[['title_id__title', 'title_id__work_group_id__name', 'title_id__work_type_id__name', 'region', "author_id__username", 'dt_start', 'dt_end', 'cell', 'title2', 'content1', 'cei_before', 'cei_after', "cei_gap", 'ber_before', 'ber_after', "ber_gap"]]
+    # Convert date/time columns to datetime64[ns] and remove timezone information
+    processGuide_df = processGuide_df[['type2__name', 'team', 'type1__name', 'type3__name', 'type4', 'title', 'content2', 'content', 'author__first_name', 'dt_created']]
+    processGuide_df['dt_created'] = processGuide_df['dt_created'].astype('datetime64[ns]').dt.tz_localize(None).dt.strftime('%Y-%m-%d')
 
-    # 컬럼명 변경
-    cei_tree_df.columns= ['B/M 사례', '구분', '세부구분', '담당', '담당자', '시작일', '종료일', 'cell 수량', '제목', '내용', 'cei_before', 'cei_after', 'cei_gap', 'ber_before', 'ber_after', 'ber_gap']
-    # 첫 컬럼에 No 추가
-    cei_tree_df.insert(0, 'No', range(1, 1 + len(cei_tree_df)))
+    processGuide_df.columns= ['지원담당', '주관부서', '구분', '분류', '세부분류', '제목', '내용', '정립기준', '담당자', '등록일']
+
+    processGuide_df.insert(0, 'No', range(1, 1 + len(processGuide_df)))
 
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="cei_tree_BM.xlsx"'
-    cei_tree_df.to_excel(response, index=False)
+    response['Content-Disposition'] = 'attachment; filename="Guide&Process.xlsx"'
+    processGuide_df.to_excel(response, index=False)
     return response
