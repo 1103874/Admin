@@ -18,11 +18,13 @@ from .forms import SRreviewForm, ceiTreeListForm, ceiTreeBMListForm, ProcessGuid
 ## SR List
 def sr_list(request):
     sr = SRreview.objects.all().order_by('-dt_created')
-    paginator = Paginator(sr, 100)
+    paginator = Paginator(sr, 10000) # 한 페이지에 10개씩 보여주기
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
     page = paginator.page(curr_page_number)
+
+
     return render(request, 'dtapp/SRreview/SRreview_list.html', {'page': page})
 
 
@@ -227,7 +229,7 @@ def ceiTree_index(request):
 ## CEItree List
 def ceiTree_list(request):
     cei = CeiTreeList.objects.all().order_by('-dt_created')
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -238,7 +240,7 @@ def ceiTree_list(request):
 def ceiTree_list2(request, inputqoe): ## 모델 필드를 활용하여 HDV_QoE1, DATA_QoE1과 같은 inputqoe를 받아서 처리
     work_group__name, work_type__name = inputqoe.split('_')
     cei = CeiTreeList.objects.filter(work_group__name=work_group__name, work_type__name=work_type__name).all().order_by('-dt_created')
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -248,7 +250,7 @@ def ceiTree_list2(request, inputqoe): ## 모델 필드를 활용하여 HDV_QoE1,
 def ceiTree_list3(request, group): ## 모델 필드를 활용하여 HDV, Data와 같은 group을 받아서 처리
     work_group__name = group
     cei = CeiTreeList.objects.filter(work_group__name=work_group__name).order_by('-dt_created')
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -257,7 +259,7 @@ def ceiTree_list3(request, group): ## 모델 필드를 활용하여 HDV, Data와
 def ceiTree_list4(request, baduser): ## 모델 필드를 활용하여 HDV, Data와 같은 group을 받아서 처리
     work_type__name = baduser
     cei = CeiTreeList.objects.filter(work_type__name=work_type__name).order_by('-dt_created')
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -267,7 +269,7 @@ def ceiTree_list5(request): ## 모델 필드를 활용하여 종합 단절, HDV 
     cei1 = CeiTreeList.objects.filter(work_group__name="종합", work_type__name="단절").order_by('-dt_created')
     cei2 = CeiTreeList.objects.filter(work_group__name="HDV", work_type__name="단절").order_by('-dt_created')
     cei = cei1 | cei2
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -277,7 +279,7 @@ def ceiTree_list6(request): ## 모델 필드를 활용하여 종합 , HDV 커버
     cei1 = CeiTreeList.objects.filter(work_group__name="종합", work_type__name="커버리지").order_by('-dt_created')
     cei2 = CeiTreeList.objects.filter(work_group__name="HDV", work_type__name="커버리지").order_by('-dt_created')
     cei = cei1 | cei2
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -287,7 +289,7 @@ def ceiTree_list7(request): ## 모델 필드를 활용하여 종합 단절, Data
     cei1 = CeiTreeList.objects.filter(work_group__name="종합", work_type__name="단절").order_by('-dt_created')
     cei2 = CeiTreeList.objects.filter(work_group__name="Data", work_type__name="단절").order_by('-dt_created')
     cei = cei1 | cei2
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -297,7 +299,7 @@ def ceiTree_list8(request): ## 모델 필드를 활용하여 종합 커버리지
     cei1 = CeiTreeList.objects.filter(work_group__name="종합", work_type__name="커버리지").order_by('-dt_created')
     cei2 = CeiTreeList.objects.filter(work_group__name="Data", work_type__name="커버리지").order_by('-dt_created')
     cei = cei1 | cei2
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -422,7 +424,7 @@ class ceiTreeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 ## CEItree(BM) List
 def ceiTreeBM_list(request):
     cei = CeiTreeBMList.objects.all().order_by('-dt_created')
-    paginator = Paginator(cei, 100)
+    paginator = Paginator(cei, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -506,12 +508,120 @@ def load_process_subtypes(request):
 
 ## ProcessGuide Index
 def ProcessGuide_index(request):
-    return render(request, 'dtapp/ProcessGuide/ProcessGuide_index.html')
+    토탈 = 0
+    가이드_기술지원_RM = 0
+    가이드_기술지원_고객부정경험 = 0
+    가이드_기술지원_구축 = 0
+    가이드_기술지원_무선국 = 0
+    가이드_기술지원_물자관리 = 0
+    가이드_기술지원_시설물 = 0
+    가이드_기술지원_운용 = 0
+    가이드_기술지원_최적화 = 0
+    가이드_기술지원_측정기 = 0
+    가이드_운용지원_RM = 0
+    가이드_운용지원_구축 = 0
+    가이드_운용지원_시설물 = 0
+    가이드_운용지원_운용 = 0
+    가이드_운용지원_측정기 = 0
+    프로세스_기술지원_RR = 0
+    프로세스_기술지원_RM = 0
+    프로세스_기술지원_Biz = 0
+    프로세스_기술지원_운용 = 0
+    프로세스_기술지원_고객부정경험 = 0
+    프로세스_기술지원_구축 = 0
+    프로세스_운용지원_RR = 0
+    프로세스_운용지원_RM = 0
+    프로세스_운용지원_구축 = 0
+    프로세스_운용지원_운용 = 0
+    안전보안_기술지원_안전 = 0
+    안전보안_기술지원_운용 = 0
+    안전보안_운용지원_안전 = 0
+    안전보안_운용지원_운용 = 0
+    표준운용보전지침_기술지원_안전 = 0
+    표준운용보전지침_기술지원_운용 = 0
+    표준운용보전지침_운용지원_안전 = 0
+    표준운용보전지침_운용지원_운용 = 0
+
+    토탈 = ProcessGuideList.objects.all().count()
+    가이드_기술지원_RM = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='RM').count()
+    가이드_기술지원_고객부정경험 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='고객부정경험').count()
+    가이드_기술지원_구축 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='구축').count()
+    가이드_기술지원_무선국 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='무선국').count()
+    가이드_기술지원_물자관리 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='물자관리').count()
+    가이드_기술지원_시설물 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='시설물').count()
+    가이드_기술지원_운용 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='운용').count()
+    가이드_기술지원_최적화 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='최적화').count()
+    가이드_기술지원_측정기 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='기술지원', type3__name='측정기').count()
+    가이드_운용지원_RM = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='운용지원', type3__name='RM').count()
+    가이드_운용지원_구축 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='운용지원', type3__name='구축').count()
+    가이드_운용지원_시설물 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='운용지원', type3__name='시설물').count()
+    가이드_운용지원_운용 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='운용지원', type3__name='운용').count()
+    가이드_운용지원_측정기 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='운용지원', type3__name='측정기').count()
+    프로세스_기술지원_RR = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='R&R').count()
+    프로세스_기술지원_RM = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='RM').count()
+    프로세스_기술지원_Biz = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='Biz').count()
+    프로세스_기술지원_운용 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='운용').count()
+    프로세스_기술지원_고객부정경험 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='고객부정경험').count()
+    프로세스_기술지원_구축 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='구축').count()
+    프로세스_운용지원_RR = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='R&R').count()
+    프로세스_운용지원_RM = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='RM').count()
+    프로세스_운용지원_구축 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='구축').count()
+    프로세스_운용지원_운용 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='운용').count()
+    안전보안_기술지원_안전 = ProcessGuideList.objects.filter(type1__name='안전/보안', type2__name='기술지원', type3__name='안전').count()
+    안전보안_기술지원_운용 = ProcessGuideList.objects.filter(type1__name='안전/보안', type2__name='기술지원', type3__name='운용').count()
+    안전보안_운용지원_안전 = ProcessGuideList.objects.filter(type1__name='안전/보안', type2__name='운용지원', type3__name='안전').count()
+    안전보안_운용지원_운용 = ProcessGuideList.objects.filter(type1__name='안전/보안', type2__name='운용지원', type3__name='운용').count()
+    표준운용보전지침_기술지원_안전 = ProcessGuideList.objects.filter(type1__name='표준운용보전지침', type2__name='기술지원', type3__name='안전').count()
+    표준운용보전지침_기술지원_운용 = ProcessGuideList.objects.filter(type1__name='표준운용보전지침', type2__name='기술지원', type3__name='운용').count()
+    표준운용보전지침_운용지원_안전 = ProcessGuideList.objects.filter(type1__name='표준운용보전지침', type2__name='운용지원', type3__name='안전').count()
+    표준운용보전지침_운용지원_운용 = ProcessGuideList.objects.filter(type1__name='표준운용보전지침', type2__name='운용지원', type3__name='운용').count()
+
+    context = {
+        '토탈': 토탈,
+        '가이드_기술지원_RM': 가이드_기술지원_RM,
+        '가이드_기술지원_고객부정경험': 가이드_기술지원_고객부정경험,
+        '가이드_기술지원_구축': 가이드_기술지원_구축,
+        '가이드_기술지원_무선국': 가이드_기술지원_무선국,
+        '가이드_기술지원_물자관리': 가이드_기술지원_물자관리,
+        '가이드_기술지원_시설물': 가이드_기술지원_시설물,
+        '가이드_기술지원_운용': 가이드_기술지원_운용,
+        '가이드_기술지원_최적화': 가이드_기술지원_최적화,
+        '가이드_기술지원_측정기': 가이드_기술지원_측정기,
+        '가이드_운용지원_RM': 가이드_운용지원_RM,
+        '가이드_운용지원_구축': 가이드_운용지원_구축,
+        '가이드_운용지원_시설물': 가이드_운용지원_시설물,
+        '가이드_운용지원_운용': 가이드_운용지원_운용,
+        '가이드_운용지원_측정기': 가이드_운용지원_측정기,
+        '프로세스_기술지원_RR': 프로세스_기술지원_RR,
+        '프로세스_기술지원_RM': 프로세스_기술지원_RM,
+        '프로세스_기술지원_Biz': 프로세스_기술지원_Biz,
+        '프로세스_기술지원_운용': 프로세스_기술지원_운용,
+        '프로세스_기술지원_고객부정경험': 프로세스_기술지원_고객부정경험,
+        '프로세스_기술지원_구축': 프로세스_기술지원_구축,
+        '프로세스_운용지원_RR': 프로세스_운용지원_RR,
+        '프로세스_운용지원_RM': 프로세스_운용지원_RM,
+        '프로세스_운용지원_구축': 프로세스_운용지원_구축,
+        '프로세스_운용지원_운용': 프로세스_운용지원_운용,
+        '안전보안_기술지원_안전': 안전보안_기술지원_안전,
+        '안전보안_기술지원_운용': 안전보안_기술지원_운용,
+        '안전보안_운용지원_안전': 안전보안_운용지원_안전,
+        '안전보안_운용지원_운용': 안전보안_운용지원_운용,
+        '표준운용보전지침_기술지원_안전': 표준운용보전지침_기술지원_안전,
+        '표준운용보전지침_기술지원_운용': 표준운용보전지침_기술지원_운용,
+        '표준운용보전지침_운용지원_안전': 표준운용보전지침_운용지원_안전,
+        '표준운용보전지침_운용지원_운용': 표준운용보전지침_운용지원_운용,
+    }
+
+    return render(request, 'dtapp/ProcessGuide/ProcessGuide_index.html', context=context)
+
+
+
+
 
 ## ProcessGuide List
 def processGuide_list(request):
     process = ProcessGuideList.objects.all().order_by('-dt_created')
-    paginator = Paginator(process, 100)
+    paginator = Paginator(process, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -520,7 +630,7 @@ def processGuide_list(request):
 def processGuide_list2(request, inputType): ## 모델 필드를 활용하여 가이드_기술지원_RM, 프로세스_운용지원_운용 같은 inputType을 받아서 처리
     type1__name, type2__name, type3__name = inputType.split('_')
     process = ProcessGuideList.objects.filter(type1__name=type1__name, type2__name=type2__name, type3__name=type3__name).all().order_by('-dt_created')
-    paginator = Paginator(process, 100)
+    paginator = Paginator(process, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
@@ -529,7 +639,7 @@ def processGuide_list2(request, inputType): ## 모델 필드를 활용하여 가
 def processGuide_list3(request, inputType2): ## 모델 필드를 활용하여 가이드_기술지원_RM, 프로세스_운용지원_운용 같은 inputType을 받아서 처리
     type1__name = inputType2
     process = ProcessGuideList.objects.filter(type1__name=type1__name).all().order_by('-dt_created')
-    paginator = Paginator(process, 100)
+    paginator = Paginator(process, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
