@@ -53,7 +53,7 @@
                                         B --> |QoE2| #D(음질)
                                         B --> |QoE3| ##D(단절)
                                         B --> |QoE4| ###D(커버리지)
-                                        B --> |가점| ####D(배드유저)
+{#                                        B --> |가점| ####D(배드유저)#}
 
                                         C --> Y(종합)
                                         C --> |QoE1| E(접속)
@@ -61,7 +61,7 @@
                                         C --> |QoE3| ##E(단절)
                                         C --> |QoE4| ###E(속도)
                                         C --> |QoE5| ####E(커버리지)
-                                        C --> |가점| #####E(배드유저)
+{#                                        C --> |가점| #####E(배드유저)#}
 
                                         click A "{% url 'dtapp:ceiTree-list' %}" "
                                         "
@@ -79,8 +79,8 @@
                                         "
                                         click ###D "{% url 'dtapp:ceiTree_list6' %}" "
                                         "
-                                        click ####D "{% url 'dtapp:ceiTree_list2' 'HDV_배드유저' %}" "
-                                        "
+{#                                        click ####D "{% url 'dtapp:ceiTree_list2' 'HDV_배드유저' %}" "#}
+{#                                        "#}
                                         click Y "{% url 'dtapp:ceiTree_list2' 'Data_종합' %}" "
                                         "
                                         click E "{% url 'dtapp:ceiTree_list2' 'Data_접속' %}" "
@@ -93,8 +93,8 @@
                                         "
                                         click ####E "{% url 'dtapp:ceiTree_list8' %}" "
                                         "
-                                        click #####E "{% url 'dtapp:ceiTree_list2' 'Data_배드유저' %}" "
-                                        "
+{#                                        click #####E "{% url 'dtapp:ceiTree_list2' 'Data_배드유저' %}" "#}
+{#                                        "#}
                                         click X "{% url 'dtapp:ceiTree_list4' '배드유저' %}" "
                                         "
                                     </div>
@@ -108,7 +108,6 @@
                                 작성하기</a>
                         </div>
                         <div class="col-6 d-inline-flex flex-row-reverse">
-
                             <a href="{% url 'dtapp:ceiTree-export' %}" class="btn btn-success">
                                 <i class="fa fa-file-excel-o"></i> Excel 다운로드
                             </a>
@@ -123,19 +122,19 @@
                     <tr>
                         <th rowspan="2">구분</th>
                         <th rowspan="2">합계</th>
-                        <th colspan="2">종합</th>
                         <th colspan="5">HDV</th>
                         <th colspan="6">DATA</th>
+                        <th colspan="2">공통(HDV & DATA)</th>
                         <th rowspan="2">배드유저</th>
                     </tr>
                     <tr>
-                        {% for i in tot_sub_categories %}
-                            <th>{{ i }}</th>
-                        {% endfor %}
                         {% for i in hdv_categories %}
                             <th>{{ i }}</th>
                         {% endfor %}
                         {% for i in data_categories %}
+                            <th>{{ i }}</th>
+                        {% endfor %}
+                        {% for i in tot_sub_categories %}
                             <th>{{ i }}</th>
                         {% endfor %}
                     </tr>
@@ -145,13 +144,13 @@
                     <tr>
                         <td style="font-weight: bold; background-color: snow">과제(건)</td>
                         <td style="font-weight: bold"><i>{{ tot_count }}</i></td>
-                        {% for i in tot_sub_counts %}
-                            <td>{{ i }}</td>
-                        {% endfor %}
                         {% for i in hdv_counts %}
                             <td>{{ i }}</td>
                         {% endfor %}
                         {% for i in data_counts %}
+                            <td>{{ i }}</td>
+                        {% endfor %}
+                        {% for i in tot_sub_counts %}
                             <td>{{ i }}</td>
                         {% endfor %}
                         <td>{{ baduser_count }}</td>

@@ -40,7 +40,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print('BASE_DIR : ', BASE_DIR)
 
 # 직무 데이터 읽기
-df = pd.read_excel(r'C:\Users\user\PycharmProjects\Admin\dtapp\프로세스_가이드_분류.xlsx')
+df = pd.read_excel(r'C:\Users\user\PycharmProjects\Admin\dtapp\management\commands\프로세스_가이드_분류.xlsx')
 
 Type1.objects.all().delete()
 

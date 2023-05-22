@@ -557,20 +557,20 @@ def ProcessGuide_index(request):
     가이드_운용지원_시설물 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='운용지원', type3__name='시설물').count()
     가이드_운용지원_운용 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='운용지원', type3__name='운용').count()
     가이드_운용지원_측정기 = ProcessGuideList.objects.filter(type1__name='가이드', type2__name='운용지원', type3__name='측정기').count()
-    프로세스_기술지원_RR = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='R&R').count()
+    프로세스_기술지원_RR = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='RnR').count()
     프로세스_기술지원_RM = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='RM').count()
     프로세스_기술지원_Biz = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='Biz').count()
     프로세스_기술지원_운용 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='운용').count()
     프로세스_기술지원_고객부정경험 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='고객부정경험').count()
     프로세스_기술지원_구축 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='기술지원', type3__name='구축').count()
-    프로세스_운용지원_RR = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='R&R').count()
+    프로세스_운용지원_RR = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='RnR').count()
     프로세스_운용지원_RM = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='RM').count()
     프로세스_운용지원_구축 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='구축').count()
     프로세스_운용지원_운용 = ProcessGuideList.objects.filter(type1__name='프로세스', type2__name='운용지원', type3__name='운용').count()
-    안전보안_기술지원_안전 = ProcessGuideList.objects.filter(type1__name='안전/보안', type2__name='기술지원', type3__name='안전').count()
-    안전보안_기술지원_운용 = ProcessGuideList.objects.filter(type1__name='안전/보안', type2__name='기술지원', type3__name='운용').count()
-    안전보안_운용지원_안전 = ProcessGuideList.objects.filter(type1__name='안전/보안', type2__name='운용지원', type3__name='안전').count()
-    안전보안_운용지원_운용 = ProcessGuideList.objects.filter(type1__name='안전/보안', type2__name='운용지원', type3__name='운용').count()
+    안전보안_기술지원_안전 = ProcessGuideList.objects.filter(type1__name='안전|보안', type2__name='기술지원', type3__name='안전').count()
+    안전보안_기술지원_운용 = ProcessGuideList.objects.filter(type1__name='안전|보안', type2__name='기술지원', type3__name='운용').count()
+    안전보안_운용지원_안전 = ProcessGuideList.objects.filter(type1__name='안전|보안', type2__name='운용지원', type3__name='안전').count()
+    안전보안_운용지원_운용 = ProcessGuideList.objects.filter(type1__name='안전|보안', type2__name='운용지원', type3__name='운용').count()
     표준운용보전지침_기술지원_안전 = ProcessGuideList.objects.filter(type1__name='표준운용보전지침', type2__name='기술지원', type3__name='안전').count()
     표준운용보전지침_기술지원_운용 = ProcessGuideList.objects.filter(type1__name='표준운용보전지침', type2__name='기술지원', type3__name='운용').count()
     표준운용보전지침_운용지원_안전 = ProcessGuideList.objects.filter(type1__name='표준운용보전지침', type2__name='운용지원', type3__name='안전').count()
@@ -629,14 +629,20 @@ def processGuide_list(request):
     return render(request, 'dtapp/ProcessGuide/ProcessGuide_list.html', {'page': page})
 def processGuide_list2(request, inputType): ## 모델 필드를 활용하여 가이드_기술지원_RM, 프로세스_운용지원_운용 같은 inputType을 받아서 처리
     type1__name, type2__name, type3__name = inputType.split('_')
-    process = ProcessGuideList.objects.filter(type1__name=type1__name, type2__name=type2__name, type3__name=type3__name).all().order_by('-dt_created')
+
+    process = ProcessGuideList.objects.filter(
+        type1__name=type1__name,
+        type2__name=type2__name,
+        type3__name=type3__name
+    ).all().order_by('-dt_created')
+
     paginator = Paginator(process, 10000)
     curr_page_number = request.GET.get('page')
     if curr_page_number is None:
         curr_page_number = 1
     page = paginator.page(curr_page_number)
     return render(request, 'dtapp/ProcessGuide/ProcessGuide_list.html', {'page': page})
-def processGuide_list3(request, inputType2): ## 모델 필드를 활용하여 가이드_기술지원_RM, 프로세스_운용지원_운용 같은 inputType을 받아서 처리
+def processGuide_list3(request, inputType2): ## 모델 필드를 활용하여 대분류(안전/보안, 표준운용보전지침) 기준만 받아서 처리
     type1__name = inputType2
     process = ProcessGuideList.objects.filter(type1__name=type1__name).all().order_by('-dt_created')
     paginator = Paginator(process, 10000)
@@ -645,8 +651,6 @@ def processGuide_list3(request, inputType2): ## 모델 필드를 활용하여 �
         curr_page_number = 1
     page = paginator.page(curr_page_number)
     return render(request, 'dtapp/ProcessGuide/ProcessGuide_list.html', {'page': page})
-
-
 
 
 ## ProcessGuide Create
@@ -676,7 +680,13 @@ class processGuideDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView
     # 'UserPassesTestMixin'은 개발자가 정의하는 커스텀 테스트('test_func')를 통과하는 유저만 뷰에 접근이 가능
     def test_func(self):  # test_func는 뷰에 접근할 수 있으면 True, 없으면 False 리턴
         sr = self.get_object()
-        return (sr.author == self.request.user) + (self.request.user.username=='admin') + (self.request.user.first_name=='인병렬') + (self.request.user.first_name=='최종언') + (self.request.user.first_name=='김희중') + (self.request.user.first_name=='조효상')  # 모델의 글쓴이와 로그인한 user가 동일하면 True, 아니면 False
+        # 모델의 글쓴이와 로그인한 user가 동일하면 True, 아니면 False
+        return (sr.author == self.request.user) + (self.request.user.username=='admin') + (self.request.user.first_name=='인병렬') + (self.request.user.first_name=='최종언')\
+               + (self.request.user.username=='N1101444') + (self.request.user.username=='N1102262') + (self.request.user.username=='N1101704')\
+               + (self.request.user.username=='N1103205') + (self.request.user.username=='N1101772') + (self.request.user.username=='N1101050')\
+               + (self.request.user.username=='N1102109') + (self.request.user.username=='N1103705') + (self.request.user.username=='N1102116')\
+               + (self.request.user.username=='N1101344') + (self.request.user.username=='N1103757') + (self.request.user.username=='N1101201')\
+               + (self.request.user.username=='N1101434') + (self.request.user.username=='N1102389')
 
 ## ProcessGuide Update
 class processGuideUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -693,6 +703,12 @@ class processGuideUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView
     # 'UserPassesTestMixin'은 개발자가 정의하는 커스텀 테스트('test_func')를 통과하는 유저만 뷰에 접근이 가능
     def test_func(self):  # test_func는 뷰에 접근할 수 있으면 True, 없으면 False 리턴
         sr = self.get_object()
-        return (sr.author == self.request.user) + (self.request.user.username=='admin') + (self.request.user.first_name=='인병렬') + (self.request.user.first_name=='최종언') + (self.request.user.first_name=='김희중') + (self.request.user.first_name=='조효상')  # 모델의 글쓴이와 로그인한 user가 동일하면 True, 아니면 False
+        # 모델의 글쓴이와 로그인한 user가 동일하면 True, 아니면 False
+        return (sr.author == self.request.user) + (self.request.user.username=='admin') + (self.request.user.first_name=='인병렬') + (self.request.user.first_name=='최종언')\
+               + (self.request.user.username=='N1101444') + (self.request.user.username=='N1102262') + (self.request.user.username=='N1101704')\
+               + (self.request.user.username=='N1103205') + (self.request.user.username=='N1101772') + (self.request.user.username=='N1101050')\
+               + (self.request.user.username=='N1102109') + (self.request.user.username=='N1103705') + (self.request.user.username=='N1102116')\
+               + (self.request.user.username=='N1101344') + (self.request.user.username=='N1103757') + (self.request.user.username=='N1101201')\
+               + (self.request.user.username=='N1101434') + (self.request.user.username=='N1102389')
 
 ## end 전사 Process & Guide App

@@ -95,7 +95,7 @@
                 font: {size: 17},
                 widthConstraint: {minimum: 90},
                 heightConstraint: {minimum: 30},
-            url: "{% url 'dtapp:processGuide-list3' '안전-보안' %}"
+            url: "{% url 'dtapp:processGuide-list3' '안전|보안' %}"
             },
             {
                 id: 2, label: 'Guide', x: -100, y: 150, fixed: {x: true, y: true}, shape: 'box',
@@ -310,7 +310,7 @@
             font: {size: 13},
             widthConstraint: {minimum: 30},
             heightConstraint: {minimum: 15},
-            url: "{% url 'dtapp:processGuide-list2' '프로세스_기술지원_R&R' %}"
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_기술지원_RnR' %}"
         });
         nodes.add({
             id: 302, label: `RM({{ 프로세스_기술지원_RM|safe }})`, x: 270, y: -220, fixed: {x: true, y: true}, shape: '',
@@ -360,7 +360,7 @@
             font: {size: 13},
             widthConstraint: {minimum: 30},
             heightConstraint: {minimum: 15},
-            url: "{% url 'dtapp:processGuide-list2' '프로세스_운용지원_R&R' %}"
+            url: "{% url 'dtapp:processGuide-list2' '프로세스_운용지원_RnR' %}"
         });
         nodes.add({
             id: 402, label: `RM({{ 프로세스_운용지원_RM|safe }})`, x: 600, y: 250 - 150, fixed: {x: true, y: true}, shape: '',

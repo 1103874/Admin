@@ -46,7 +46,7 @@ urlpatterns = [
     path('process/index/', views.ProcessGuide_index, name='processGuide-index'),
     path('process/', views.processGuide_list, name='processGuide-list'),
     path('process/<str:inputType>', views.processGuide_list2, name='processGuide-list2'),  ## 가이드_기술지원_RM, 프로세스_운용지원_운용.. 형식 리스트
-    path('process/type1/<str:inputType2>', views.processGuide_list3, name='processGuide-list3'),  ## 가이드_기술지원_RM, 프로세스_운용지원_운용.. 형식 리스트
+    path('process/type/<str:inputType2>', views.processGuide_list3, name='processGuide-list3'),  ## 대분류(안전/보안, 표준운용보전지침) 기준 리스트
 
     path('process/new/', views.processGuideCreateView.as_view(), name='processGuide-create'),
     path('process/<int:process_id>/delete/', views.processGuideDeleteView.as_view(), name='processGuide-delete'),
